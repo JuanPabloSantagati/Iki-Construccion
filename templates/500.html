@@ -1,0 +1,18 @@
+{% load static %}<!doctype html>
+{# Autocontenida a propósito: si falla el servidor, no dependemos de nada más. #}
+<html lang="es-AR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Error | IKI</title>
+  <link rel="stylesheet" href="{% static 'css/app.css' %}">
+</head>
+<body>
+  <section class="container-site py-32">
+    <p class="eyebrow text-ash">Error 500</p>
+    <h1 class="mt-6 text-5xl">Algo salió mal</h1>
+    <p class="mt-6 text-stone">Tuvimos un problema. Probá de nuevo en unos minutos.</p>
+    <a href="/" class="btn-outline mt-10">Volver al inicio</a>
+  </section>
+</body>
+</html>

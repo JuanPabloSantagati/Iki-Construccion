@@ -1,0 +1,125 @@
+# CI de IKI. Reglas (ver CLAUDE.md):
+# - Solo `push` a main y `pull_request`. NUNCA `pull_request_target`: el repo es público y
+#   los PRs de forks no deben ejecutarse con secretos ni permisos de escritura.
+# - Permisos mínimos y actions fijadas a un SHA de commit (comentario = versión).
+# - Este workflow no usa secretos: la DB es un Postgres efímero de GitHub, nunca Supabase.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PYTHON_VERSION: "3.12"
+  PIP_DISABLE_PIP_VERSION_CHECK: "1"
+
+jobs:
+  lint:
+    name: Lint (ruff)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+          cache-dependency-path: requirements/*.txt
+      - run: pip install --require-hashes -r requirements/dev.txt
+      - run: ruff check --output-format=github .
+      - run: ruff format --check .
+
+  secrets:
+    name: Detección de secretos (gitleaks)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0 # escanea todo el historial
+          persist-credentials: false
+      - name: Instalar gitleaks (checksum verificado)
+        env:
+          GITLEAKS_VERSION: "8.30.1"
+          GITLEAKS_SHA256: "551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb"
+        run: |
+          curl -fsSL -o gitleaks.tar.gz \
+            "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          echo "${GITLEAKS_SHA256}  gitleaks.tar.gz" | sha256sum --check
+          tar -xzf gitleaks.tar.gz gitleaks
+      - name: Escanear (los hallazgos se muestran redactados)
+        run: ./gitleaks git --redact --verbose --no-banner .
+
+  test:
+    name: Tests + check --deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: iki
+          POSTGRES_PASSWORD: iki-ci # efímero, solo existe dentro del runner
+          POSTGRES_DB: iki
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U iki"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      DJANGO_READ_DOT_ENV: "0"
+      DATABASE_URL: postgres://iki:iki-ci@localhost:5432/iki
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+          cache-dependency-path: requirements/*.txt
+      - run: pip install --require-hashes -r requirements/dev.txt
+      - name: Compilar CSS (Tailwind standalone, checksum verificado)
+        run: ./scripts/build_css.sh
+      - name: Migraciones al día
+        run: python manage.py makemigrations --check --dry-run
+        env:
+          DJANGO_SETTINGS_MODULE: config.settings.test
+      - name: Tests (Postgres)
+        run: pytest
+      - name: Settings de producción (check --deploy + collectstatic)
+        env:
+          DJANGO_SETTINGS_MODULE: config.settings.prod
+          ALLOWED_HOSTS: iki.example
+          CSRF_TRUSTED_ORIGINS: https://iki.example
+          ADMIN_URL: panel-ci/
+        run: |
+          # Clave aleatoria por ejecución: no es un secreto, se descarta al terminar.
+          export SECRET_KEY="$(python -c 'import secrets; print(secrets.token_urlsafe(64))')"
+          python manage.py check --deploy --fail-level WARNING
+          python manage.py collectstatic --noinput
+
+  audit:
+    name: Vulnerabilidades en dependencias (pip-audit)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+          cache-dependency-path: requirements/*.txt
+      - run: pip install --require-hashes -r requirements/dev.txt
+      - run: pip-audit --strict --disable-pip --no-deps -r requirements/base.txt -r requirements/dev.txt

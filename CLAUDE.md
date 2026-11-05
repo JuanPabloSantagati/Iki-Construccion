@@ -32,7 +32,7 @@ apps/projects/   # proyectos, imágenes, tipos, seed_projects
 apps/services/   # servicios y pasos del proceso
 apps/contact/    # consultas, formulario, mails, WhatsApp
 templates/       # base.html, partials/, errors/, <app>/
-static/src/      # input.css (fuente Tailwind) — static/css/ compilado NO se commitea
+assets/input.css  # fuente Tailwind — static/css/ compilado NO se commitea
 static/js/       # htmx.min.js (versión fija), JS propio
 static/img/      # logo (lo agregan los socios)
 requirements/    # *.in (directas) → *.txt (compiladas con hashes)
@@ -49,10 +49,12 @@ python manage.py migrate && python manage.py runserver
 pytest                                                   # tests
 ruff check . && ruff format --check .                    # lint
 pre-commit run --all-files
-python manage.py check --deploy --settings=config.settings.prod
+# check --deploy con settings de prod: ver README (requiere variables de prod)
 ```
 
-Agregar una dependencia: editar `requirements/*.in` → `pip-compile --generate-hashes` → commitear `.in` y `.txt` juntos.
+Agregar una dependencia: editar `requirements/*.in` → `python -m piptools compile --generate-hashes --allow-unsafe --strip-extras requirements/<x>.in -o requirements/<x>.txt` → commitear `.in` y `.txt` juntos.
+
+Docs: `docs/plan.md` (plan), `docs/supabase.md` (DB, RLS, Storage), `docs/github-security.md` (config manual de GitHub).
 
 ## Reglas estrictas
 
@@ -105,7 +107,7 @@ Agregar una dependencia: editar `requirements/*.in` → `pip-compile --generate-
 
 ## Roadmap (no avanzar de etapa sin aprobación)
 
-- [ ] **A** — Scaffolding + settings + Supabase (DB/Storage con fallback) + Tailwind + CI + tooling
+- [x] **A** — Scaffolding + settings + Supabase (DB/Storage con fallback) + Tailwind + CI + tooling
 - [ ] **B** — Modelos + admin (inlines, subida múltiple) + Pillow + `seed_projects`
 - [ ] **C** — Portfolio con filtros HTMX + ficha de proyecto con lightbox
 - [ ] **D** — Home, Estudio y Servicios (con proyectos relacionados)

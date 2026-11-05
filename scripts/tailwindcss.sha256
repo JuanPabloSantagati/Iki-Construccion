@@ -1,0 +1,7 @@
+# Checksums oficiales de tailwindcss v4.3.4 (sha256sums.txt del release en GitHub).
+# Al actualizar TAILWIND_VERSION en build_css.sh, actualizar también estas líneas.
+149a8ece5b855587a9c10de6da9dcbcfad0e47c4ed5dca219f721b3eae39d817  tailwindcss-linux-x64
+f6d7baae1d350ed3a2defe98d0b5cc58e37400c0173b2e38d42f690ccc4bbfe1  tailwindcss-linux-arm64
+a516a11b439bfbb5ecd4a2d13b75e6cdcc284dc710aed8731e31d2e5c03895a4  tailwindcss-macos-arm64
+7ec771593a1fb8bbd204f70429361b0158f7989e4136bc68d04513bf543a15ba  tailwindcss-macos-x64
+ad84612696f3be102fa005d4827f0df84c7b4570d31c06865ce5fde0311478af  tailwindcss-windows-x64.exe

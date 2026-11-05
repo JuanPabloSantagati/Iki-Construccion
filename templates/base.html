@@ -1,0 +1,24 @@
+{% load static %}<!doctype html>
+<html lang="es-AR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}IKI | Diseño & Construcción{% endblock %}</title>
+  <meta name="description" content="{% block meta_description %}Estudio de arquitectura en Baradero. Proyectos, renders, dirección de obra, planos municipales y agrimensura. La elegancia de lo esencial.{% endblock %}">
+  {# HTMX sin eval, sin <script> inyectados y sin estilos inline: compatible con una CSP estricta #}
+  <meta name="htmx-config" content='{"includeIndicatorStyles": false, "allowEval": false, "allowScriptTags": false, "selfRequestsOnly": true}'>
+  <link rel="preload" href="{% static 'fonts/manrope-latin-wght-normal.woff2' %}" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="{% static 'css/app.css' %}">
+  <script src="{% static 'js/htmx.min.js' %}" integrity="sha384-2OatzQy1H+Zd/IIrjr1TcuDGqLXeHhbooAyJY1KdQMKnr4LZ22k31GBLdYKHmVjg" defer></script>
+  {% block extra_head %}{% endblock %}
+</head>
+{# El token CSRF viaja en cada request de HTMX #}
+<body class="flex min-h-svh flex-col" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+  <a href="#contenido" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:bg-paper focus:p-3">Saltar al contenido</a>
+  {% include "partials/header.html" %}
+  <main id="contenido" class="flex-1">
+    {% block content %}{% endblock %}
+  </main>
+  {% include "partials/footer.html" %}
+</body>
+</html>
