@@ -1,0 +1,35 @@
+# Secretos y entorno — NUNCA commitear
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Django
+media/
+staticfiles/
+*.sqlite3
+*.log
+
+# Assets compilados / binarios descargados
+static/css/
+bin/
+
+# Editor / SO
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Claude Code (config local de cada uno)
+.claude/settings.local.json
