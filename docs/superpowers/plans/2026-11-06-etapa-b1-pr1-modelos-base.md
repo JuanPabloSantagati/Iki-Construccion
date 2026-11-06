@@ -146,9 +146,7 @@ class SiteSettings(models.Model):
         max_length=15,
         blank=True,
         validators=[
-            RegexValidator(
-                r"^\d{8,15}$", "Solo dígitos, con código de país (ej: 5493329000000)."
-            )
+            RegexValidator(r"^\d{8,15}$", "Solo dígitos, con código de país (ej: 5493329000000).")
         ],
         help_text="Solo dígitos, con código de país. Ej: 5493329000000.",
     )
@@ -429,9 +427,7 @@ class Inquiry(models.Model):
     message = models.TextField("mensaje")
     consent = models.BooleanField("consentimiento", default=False)
     consent_at = models.DateTimeField("fecha del consentimiento", null=True, blank=True)
-    status = models.CharField(
-        "estado", max_length=10, choices=Status.choices, default=Status.NEW
-    )
+    status = models.CharField("estado", max_length=10, choices=Status.choices, default=Status.NEW)
     created_at = models.DateTimeField("recibida", auto_now_add=True)
 
     class Meta:
