@@ -1,6 +1,6 @@
 # Etapa B1 — Modelos, admin y pipeline de imágenes
 
-Fecha: 2026-11-06 · Estado: aprobado por Franco (pendiente de revisión de Juan Pablo)
+Fecha: 2026-11-06 · Estado: diseño aprobado por Franco. Juan Pablo lo revisa junto con los PRs de B1
 Contexto: `docs/plan.md`, `docs/propuesta-etapas.md`, `CLAUDE.md`.
 
 ## Objetivo
