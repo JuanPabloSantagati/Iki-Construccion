@@ -1,5 +1,9 @@
 from django.core.validators import MaxValueValidator, MinValueValidator
-from django.db import models
+from django.db import models, transaction
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
+
+from apps.core.images import SIZES, process_image
 
 from .sanitize import clean_html
 
@@ -98,3 +102,57 @@ class ProjectFact(models.Model):
 
     def __str__(self):
         return f"{self.label}: {self.value}"
+
+
+class ProjectImage(models.Model):
+    """Imagen de un proyecto en 3 tamaños WebP. Se crea SIEMPRE con `from_upload`."""
+
+    project = models.ForeignKey(
+        Project, on_delete=models.CASCADE, related_name="images", verbose_name="proyecto"
+    )
+    thumb = models.ImageField("miniatura", upload_to="projects/")
+    medium = models.ImageField("mediana", upload_to="projects/")
+    large = models.ImageField("grande", upload_to="projects/")
+    alt = models.CharField("texto alternativo", max_length=200, blank=True)
+    order = models.PositiveSmallIntegerField("orden", default=0)
+    is_cover = models.BooleanField("portada", default=False)
+    created_at = models.DateTimeField("subida", auto_now_add=True)
+
+    class Meta:
+        ordering = ["order", "id"]
+        verbose_name = "imagen"
+        verbose_name_plural = "imágenes"
+        constraints = [
+            models.UniqueConstraint(
+                fields=["project"],
+                condition=models.Q(is_cover=True),
+                name="unique_cover_per_project",
+            ),
+        ]
+
+    def __str__(self):
+        return self.alt or f"Imagen de {self.project}"
+
+    def save(self, *args, **kwargs):
+        if not self.alt:
+            parts = [self.project.title, self.project.location]
+            self.alt = ", ".join(part for part in parts if part)[:200]
+        super().save(*args, **kwargs)
+
+    @classmethod
+    def from_upload(cls, project, uploaded, *, order=0, alt="", is_cover=False):
+        """Procesa el archivo (lanza ValidationError si no es una imagen válida) y lo guarda."""
+        files = process_image(uploaded)
+        image = cls(project=project, order=order, alt=alt, is_cover=is_cover)
+        for label, content in files.items():
+            getattr(image, label).save(content.name, content, save=False)
+        image.save()
+        return image
+
+
+@receiver(post_delete, sender=ProjectImage)
+def delete_image_files(sender, instance, **kwargs):
+    """Borra los archivos del storage al borrar la imagen (si no, seguirían públicos)."""
+    names = [getattr(instance, label).name for label in SIZES]
+    storage = instance.thumb.storage
+    transaction.on_commit(lambda: [storage.delete(name) for name in names if name])
