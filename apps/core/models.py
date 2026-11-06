@@ -1,6 +1,8 @@
 from django.core.validators import RegexValidator
 from django.db import models
 
+from .images import process_image
+
 
 class SiteSettings(models.Model):
     """Datos públicos de contacto y redes. Un solo registro (pk=1)."""
@@ -55,11 +57,12 @@ class Zone(models.Model):
 
 
 class TeamMember(models.Model):
-    """Integrante del estudio (página Estudio). La foto se agrega en el PR 2."""
+    """Integrante del estudio (página Estudio)."""
 
     name = models.CharField("nombre", max_length=100)
     role = models.CharField("rol", max_length=100)
     bio = models.TextField("biografía", blank=True)
+    photo = models.ImageField("foto", upload_to="team/", blank=True)
     order = models.PositiveSmallIntegerField("orden", default=0)
 
     class Meta:
@@ -69,3 +72,8 @@ class TeamMember(models.Model):
 
     def __str__(self):
         return self.name
+
+    def set_photo(self, uploaded):
+        """Única vía para cargar la foto: pasa por el pipeline (lanza ValidationError)."""
+        content = process_image(uploaded)["medium"]
+        self.photo.save(content.name, content, save=False)
