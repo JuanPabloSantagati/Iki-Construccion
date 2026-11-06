@@ -1,0 +1,82 @@
+/* Fuente de Tailwind (fuera de static/: no se publica). Compilar con ./scripts/build_css.sh → static/css/app.css
+   Las url() se resuelven relativas al CSS compilado (static/css/). */
+@import "tailwindcss" source(none);
+@source "../templates";
+@source "../apps";
+@source "../static/js";
+
+/* --- Tipografías (servidas por nosotros, subset latin: incluye á é í ó ú ñ ¿ ¡) --- */
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url("../fonts/manrope-latin-wght-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Cormorant Garamond";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("../fonts/cormorant-garamond-latin-300-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Cormorant Garamond";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/cormorant-garamond-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Cormorant Garamond";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/cormorant-garamond-latin-400-italic.woff2") format("woff2");
+}
+
+/* --- Tokens de diseño IKI: monocromo, como el logo --- */
+@theme {
+  --color-ink: #111111;
+  --color-graphite: #2e2e2e;
+  --color-stone: #5e5e5e;
+  --color-ash: #6f6f6f;
+  --color-line: #e3e3e1;
+  --color-mist: #f5f5f3;
+  --color-paper: #ffffff;
+  --color-whatsapp: #25d366;
+
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Cormorant Garamond", Georgia, serif;
+
+  --container-site: 1400px;
+}
+
+@layer base {
+  html {
+    @apply bg-paper text-ink font-sans antialiased;
+  }
+  h1, h2, h3 {
+    @apply font-display font-light tracking-tight;
+  }
+}
+
+@layer components {
+  .container-site {
+    @apply mx-auto w-full max-w-site px-6 md:px-12;
+  }
+  /* Etiqueta de navegación / metadatos: mayúsculas chicas con tracking amplio */
+  .eyebrow {
+    @apply text-[11px] font-medium uppercase tracking-[0.2em] md:text-xs;
+  }
+  .btn-outline {
+    @apply inline-flex items-center justify-center border border-ink px-5 py-3 text-xs
+      font-medium uppercase tracking-[0.16em] transition-colors duration-300
+      hover:bg-ink hover:text-paper focus-visible:outline-2 focus-visible:outline-offset-2;
+  }
+  .btn-solid {
+    @apply inline-flex items-center justify-center bg-ink px-5 py-3 text-xs font-medium
+      uppercase tracking-[0.16em] text-paper transition-colors duration-300 hover:bg-graphite
+      focus-visible:outline-2 focus-visible:outline-offset-2;
+  }
+}

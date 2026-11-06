@@ -1,0 +1,29 @@
+version: 2
+updates:
+  # Dependencias Python: Dependabot recompila requirements/*.txt (pip-compile, con hashes).
+  - package-ecosystem: pip
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+      timezone: America/Argentina/Buenos_Aires
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "chore(deps)"
+    groups:
+      dev-tools:
+        patterns: ["ruff", "pytest*", "pre-commit", "pip-tools", "pip-audit"]
+    ignore:
+      # Django se mantiene en 5.2 LTS; el salto de versión mayor se decide a mano.
+      - dependency-name: "django"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+
+  # Actions fijadas por SHA: Dependabot actualiza el SHA y el comentario de versión.
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+      timezone: America/Argentina/Buenos_Aires
+    commit-message:
+      prefix: "ci(deps)"

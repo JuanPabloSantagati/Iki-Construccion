@@ -1,0 +1,10 @@
+# Finales de línea LF en el repo (los scripts .sh fallan con CRLF en Linux/CI).
+* text=auto eol=lf
+*.woff2 binary
+*.png binary
+*.jpg binary
+*.webp binary
+*.ico binary
+
+# Vendoreado: byte a byte igual al original (hash SRI en base.html).
+static/js/htmx.min.js -text

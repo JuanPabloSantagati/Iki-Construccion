@@ -1,0 +1,10 @@
+# Dependencias de desarrollo y CI. Compilar con:
+#   pip-compile --generate-hashes --allow-unsafe requirements/dev.in -o requirements/dev.txt
+-c base.txt
+-r base.in
+ruff
+pytest
+pytest-django
+pre-commit
+pip-tools
+pip-audit

@@ -1,0 +1,11 @@
+# Config de gitleaks: reglas por defecto + allowlist mínima y explícita.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Valores de ejemplo, no secretos"
+paths = [
+  '''\.env\.example$''',
+  '''requirements/.*\.txt$''',
+  '''static/js/htmx\.min\.js$''',
+]
