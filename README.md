@@ -25,7 +25,7 @@ cd Iki-Construccion
 python -m venv .venv
 source .venv/Scripts/activate          # Windows (Git Bash)
 # source .venv/bin/activate            # macOS / Linux
-pip install --require-hashes -r requirements/dev.txt
+python -m pip install --require-hashes -r requirements/dev.txt
 
 # 3. Variables de entorno
 cp .env.example .env

@@ -40,11 +40,15 @@ Cormorant Garamond (títulos) + Manrope (texto), servidas por nosotros. Tokens e
 
 ## Etapas
 
+Orden: A → B1 → C → D → B2 → E → F. La etapa B se dividió en B1 y B2 (aprobado por ambos
+socios; fundamento en `docs/propuesta-etapas.md`).
+
 - **A** — Scaffolding, settings seguros, Supabase (DB + Storage con fallback), Tailwind, CI, tooling.
-- **B** — Modelos, admin (subida múltiple, orden por arrastre, portada), Pillow, 2FA, django-axes,
-  roles Editor/Gestión, RLS automatizado, `seed_projects`.
+- **B1** — Modelos, admin (subida múltiple, orden por arrastre, portada), Pillow, `seed_projects`.
 - **C** — Portfolio con filtros HTMX y ficha de proyecto con lightbox.
 - **D** — Home, Estudio, Servicios.
+- **B2** — Endurecer el admin: 2FA, django-axes, roles Editor/Gestión, RLS automatizado.
+  **Obligatoria antes del primer deploy público.**
 - **E** — Contacto: HTMX, mails, WhatsApp, Turnstile, honeypot, rate limit, privacidad,
   `purge_inquiries`.
 - **F** — Zonas, SEO (sitemap, JSON-LD LocalBusiness, Open Graph), CSP estricta, security.txt,
@@ -56,3 +60,7 @@ Cormorant Garamond (títulos) + Manrope (texto), servidas por nosotros. Tokens e
 - Proveedor de mail y casilla de avisos (etapa E).
 - Tipografía final según el logo.
 - Plazo de retención de consultas (propuesta: 24 meses y luego anonimizar).
+- Turnstile (etapa E): excepción documentada de CSP, o solo honeypot + rate limit.
+- Cómo medir las consultas (WhatsApp / formulario) sin cookies de terceros.
+- Quién junta fotos, renders, logo y textos reales, y para cuándo.
+- Landings de zona (etapa F): entran solo si hay contenido propio por zona.

@@ -42,7 +42,7 @@ requirements/    # *.in (directas) → *.txt (compiladas con hashes)
 
 ```bash
 python -m venv .venv && source .venv/Scripts/activate   # Windows Git Bash
-pip install --require-hashes -r requirements/dev.txt
+python -m pip install --require-hashes -r requirements/dev.txt
 cp .env.example .env                                     # completar valores
 ./scripts/build_css.sh [--watch]                         # Tailwind
 python manage.py migrate && python manage.py runserver
@@ -107,9 +107,12 @@ Docs: `docs/plan.md` (plan), `docs/supabase.md` (DB, RLS, Storage), `docs/github
 
 ## Roadmap (no avanzar de etapa sin aprobación)
 
+Orden: A → B1 → C → D → B2 → E → F (B dividida; ver `docs/propuesta-etapas.md`).
+
 - [x] **A** — Scaffolding + settings + Supabase (DB/Storage con fallback) + Tailwind + CI + tooling
-- [ ] **B** — Modelos + admin (inlines, subida múltiple) + Pillow + `seed_projects`
+- [ ] **B1** — Modelos + admin (inlines, subida múltiple) + Pillow + `seed_projects`
 - [ ] **C** — Portfolio con filtros HTMX + ficha de proyecto con lightbox
 - [ ] **D** — Home, Estudio y Servicios (con proyectos relacionados)
+- [ ] **B2** — Endurecer el admin: 2FA, django-axes, roles, RLS. **Obligatoria antes del primer deploy público**
 - [ ] **E** — Contacto (HTMX, mails, WhatsApp)
 - [ ] **F** — SEO (sitemap, JSON-LD, Open Graph), zonas y pulido responsive

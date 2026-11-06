@@ -1,7 +1,8 @@
 # Propuesta: ajustar el plan de etapas
 
-> **Estado:** propuesta para discutir. **No cambia** `CLAUDE.md` ni `docs/plan.md`: si se acepta,
-> se aplica en un PR aparte (ver "Cambios concretos si se acepta").
+> **Estado:** la división de B en B1/B2 fue aprobada por ambos socios y ya está aplicada en
+> `CLAUDE.md` y `docs/plan.md`. Las demás decisiones (hosting, contenido, Turnstile, medición,
+> zonas) siguen abiertas: están en "Pendientes de definir" de `docs/plan.md`.
 > Origen: revisión del PR #1 (etapa A) y del plan completo, hecha por Franco con Claude Code.
 
 ## Opinión general
