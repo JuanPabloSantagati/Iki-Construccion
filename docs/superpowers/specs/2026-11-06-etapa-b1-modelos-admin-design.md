@@ -47,7 +47,7 @@ Código y campos en inglés; `verbose_name` en español.
 
 ## Pipeline de imágenes
 
-`apps/projects/images.py`, una función que recibe el archivo subido y devuelve los archivos
+`apps/core/images.py` (compartido por `core` y `projects`), una función que recibe el archivo subido y devuelve los archivos
 procesados.
 
 1. Valida por **contenido real** con Pillow (no por extensión). Formatos: JPEG, PNG, WebP.
