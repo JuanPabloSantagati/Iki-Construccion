@@ -137,7 +137,13 @@ class ProjectImage(models.Model):
         if not self.alt:
             parts = [self.project.title, self.project.location]
             self.alt = ", ".join(part for part in parts if part)[:200]
-        super().save(*args, **kwargs)
+        with transaction.atomic():
+            if self.is_cover:
+                # Una sola portada por proyecto: la anterior se desmarca antes de guardar.
+                type(self).objects.filter(project=self.project, is_cover=True).exclude(
+                    pk=self.pk
+                ).update(is_cover=False)
+            super().save(*args, **kwargs)
 
     @classmethod
     def from_upload(cls, project, uploaded, *, order=0, alt="", is_cover=False):
