@@ -119,11 +119,20 @@ def test_alt_manual_se_respeta(project_type):
     assert image.alt == "Fachada norte"
 
 
-def test_una_sola_portada_por_proyecto(project_type):
+def test_marcar_nueva_portada_desmarca_la_anterior(project_type):
+    project = make_project(project_type)
+    first = new_image(project, is_cover=True)
+    second = new_image(project, is_cover=True)
+    first.refresh_from_db()
+    assert (first.is_cover, second.is_cover) == (False, True)
+
+
+def test_la_db_impide_dos_portadas_aunque_se_salte_save(project_type):
     project = make_project(project_type)
     new_image(project, is_cover=True)
+    other = new_image(project)
     with pytest.raises(IntegrityError), transaction.atomic():
-        new_image(project, is_cover=True)
+        ProjectImage.objects.filter(pk=other.pk).update(is_cover=True)
 
 
 def test_dos_proyectos_pueden_tener_portada_cada_uno(project_type):
