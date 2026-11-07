@@ -46,6 +46,7 @@ python -m pip install --require-hashes -r requirements/dev.txt
 cp .env.example .env                                     # completar valores
 ./scripts/build_css.sh [--watch]                         # Tailwind
 python manage.py migrate && python manage.py runserver
+python manage.py seed_projects                           # datos de referencia (solo DEBUG=True)
 pytest                                                   # tests
 ruff check . && ruff format --check .                    # lint
 pre-commit run --all-files
