@@ -1,0 +1,22 @@
+{% extends "admin/base_site.html" %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+  <a href="{% url 'admin:index' %}">Inicio</a> ›
+  <a href="{% url 'admin:projects_project_changelist' %}">Proyectos</a> ›
+  <a href="{% url 'admin:projects_project_change' project.pk %}">{{ project.title }}</a> ›
+  Subir imágenes
+</div>
+{% endblock %}
+
+{% block content %}
+<p>Elegí una o varias fotos (JPEG, PNG o WebP; hasta 10 MB cada una, máximo 20 por vez). Se
+optimizan, se les borran los datos de ubicación y se guardan en tres tamaños.</p>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form.non_field_errors }}
+  {{ form.files.errors }}
+  {{ form.files }}
+  <p><input type="submit" value="Subir imágenes" class="default"></p>
+</form>
+{% endblock %}

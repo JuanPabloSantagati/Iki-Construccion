@@ -8,3 +8,4 @@ django-storages[s3]
 Pillow
 whitenoise
 gunicorn
+nh3
