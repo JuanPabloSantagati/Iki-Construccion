@@ -1,9 +1,33 @@
+{% load iki %}
 <footer class="mt-24 bg-graphite text-mist">
-  <div class="container-site flex flex-col gap-4 py-12 md:flex-row md:items-end md:justify-between">
+  <div class="container-site grid gap-10 py-14 md:grid-cols-3">
     <div>
       <p class="font-display text-2xl tracking-[0.3em]">IKI</p>
-      <p class="mt-2 text-sm text-mist/70">Diseño &amp; Construcción · Baradero, Buenos Aires</p>
+      <p class="mt-2 text-sm text-mist/70">Diseño &amp; Construcción</p>
+      {% if site.address %}<p class="mt-1 text-sm text-mist/70">{{ site.address }}</p>{% endif %}
     </div>
+
+    <nav aria-label="Secciones">
+      <p class="eyebrow text-mist/60">Navegación</p>
+      <ul class="mt-4 space-y-2 text-sm">
+        <li><a href="{% url 'core:home' %}" class="hover:text-paper">Inicio</a></li>
+        <li><a href="{% url 'projects:list' %}" class="hover:text-paper">Proyectos</a></li>
+      </ul>
+    </nav>
+
+    <div>
+      <p class="eyebrow text-mist/60">Contacto</p>
+      <ul class="mt-4 space-y-2 text-sm">
+        {% whatsapp_url site.whatsapp as wa %}
+        {% if wa %}<li><a href="{{ wa }}" class="hover:text-paper" target="_blank" rel="noopener">WhatsApp</a></li>{% endif %}
+        {% if site.phone %}<li><a href="{{ site.phone|tel_href }}" class="hover:text-paper">{{ site.phone }}</a></li>{% endif %}
+        {% if site.email %}<li><a href="mailto:{{ site.email }}" class="hover:text-paper">{{ site.email }}</a></li>{% endif %}
+        {% if site.instagram %}<li><a href="{{ site.instagram }}" class="hover:text-paper" target="_blank" rel="noopener">Instagram</a></li>{% endif %}
+        {% if site.facebook %}<li><a href="{{ site.facebook }}" class="hover:text-paper" target="_blank" rel="noopener">Facebook</a></li>{% endif %}
+      </ul>
+    </div>
+  </div>
+  <div class="container-site border-t border-mist/10 py-6">
     <p class="text-xs text-mist/60">&copy; {% now "Y" %} IKI. La elegancia de lo esencial.</p>
   </div>
 </footer>

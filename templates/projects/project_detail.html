@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% load static iki %}
+
+{% block title %}{{ project.seo_title|default:project.title }} | IKI Diseño & Construcción{% endblock %}
+{% block meta_description %}{{ project.seo_description|default:project.summary|default:"Proyecto de IKI, estudio de arquitectura en Baradero." }}{% endblock %}
+
+{% block extra_head %}
+  {% if not project.is_published %}<meta name="robots" content="noindex">{% endif %}
+  <script src="{% static 'js/lightbox.js' %}" defer></script>
+{% endblock %}
+
+{% block content %}
+{% if not project.is_published %}
+  <p class="bg-ink py-3 text-center text-xs uppercase tracking-[0.16em] text-paper">Borrador: solo lo ve el equipo</p>
+{% endif %}
+
+{# 1. Hero a todo el ancho #}
+{% with cover=project.cover %}
+  {% if cover %}
+    <img src="{{ cover.large.url }}"
+         srcset="{{ cover.medium.url }} 1280w, {{ cover.large.url }} 2000w"
+         sizes="100vw" alt="{{ cover.alt }}" fetchpriority="high"
+         class="h-[65svh] w-full object-cover md:h-[85svh]">
+  {% endif %}
+{% endwith %}
+
+<article class="container-site">
+  {# 2. Volver + título + metadatos #}
+  <header class="pt-10 md:pt-16">
+    <a href="{% url 'projects:list' %}" class="eyebrow text-ash hover:text-ink">&larr; Todos los proyectos</a>
+    <h1 class="mt-6 text-5xl leading-[1.05] md:text-7xl">{{ project.title }}</h1>
+    <p class="mt-5 text-sm uppercase tracking-[0.12em] text-stone">{{ project.meta_items|join:" · " }}</p>
+  </header>
+
+  <div class="mt-14 grid gap-14 md:mt-20 lg:grid-cols-12 lg:gap-16">
+    {# 3. Sobre el proyecto #}
+    <section class="lg:col-span-7" aria-labelledby="sobre">
+      <h2 id="sobre" class="eyebrow text-ash">Sobre el proyecto</h2>
+      {% if project.summary %}<p class="mt-6 font-display text-2xl leading-snug md:text-3xl">{{ project.summary }}</p>{% endif %}
+      <div class="rich-text mt-6 text-stone">{{ project.description|rich_text }}</div>
+    </section>
+
+    <aside class="lg:col-span-5">
+      {# 4. Datos clave #}
+      <h2 class="eyebrow text-ash">Datos del proyecto</h2>
+      <dl class="mt-6 grid grid-cols-2 gap-x-6 gap-y-6 border-t border-line pt-6">
+        {% if project.area_m2 %}<div><dt class="eyebrow text-ash">Superficie</dt><dd class="mt-1">{{ project.area_m2 }} m²</dd></div>{% endif %}
+        <div><dt class="eyebrow text-ash">Ubicación</dt><dd class="mt-1">{{ project.location }}</dd></div>
+        {% if project.year %}<div><dt class="eyebrow text-ash">Año</dt><dd class="mt-1">{{ project.year }}</dd></div>{% endif %}
+        <div><dt class="eyebrow text-ash">Tipo</dt><dd class="mt-1">{{ project.project_type.name }}</dd></div>
+        <div><dt class="eyebrow text-ash">Categoría</dt><dd class="mt-1">{{ project.get_category_display }}</dd></div>
+        {% for fact in facts %}
+          <div><dt class="eyebrow text-ash">{{ fact.label }}</dt><dd class="mt-1">{{ fact.value }}</dd></div>
+        {% endfor %}
+      </dl>
+
+      {# 5. Servicios aplicados (los links a cada servicio llegan en la etapa D) #}
+      {% if services %}
+        <h2 class="eyebrow mt-12 text-ash">Servicios realizados</h2>
+        <ul class="mt-4 space-y-2 border-t border-line pt-4">
+          {% for service in services %}<li>{{ service.title }}</li>{% endfor %}
+        </ul>
+      {% endif %}
+    </aside>
+  </div>
+
+  {# 6. CTA intermedio #}
+  <section class="mt-20 bg-mist px-6 py-12 md:px-12 md:py-16">
+    <h2 class="text-3xl md:text-4xl">¿Te gustó este proyecto?</h2>
+    <p class="mt-4 max-w-xl text-stone">Contanos qué tenés en mente y lo pensamos juntos.</p>
+    <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+      <a href="/contacto/" class="btn-solid">Hacer una consulta</a>
+      {% whatsapp_url site.whatsapp whatsapp_text as wa %}
+      {% if wa %}<a href="{{ wa }}" class="btn-outline" target="_blank" rel="noopener">WhatsApp</a>{% endif %}
+      {% if site.phone %}<a href="{{ site.phone|tel_href }}" class="btn-outline">Llamar</a>{% endif %}
+    </div>
+  </section>
+
+  {# 7. Galería con lightbox. Sin JS, cada foto es un link a la imagen grande. #}
+  {% if images %}
+    <section class="mt-20" aria-labelledby="galeria">
+      <h2 id="galeria" class="eyebrow text-ash">Galería</h2>
+      <ul class="mt-6 grid gap-4 md:grid-cols-2 md:gap-6" data-gallery>
+        {% for image in images %}
+          <li class="{% cycle 'md:col-span-2' '' '' %}">
+            <a href="{{ image.large.url }}" data-lightbox class="block overflow-hidden bg-mist" aria-label="Ampliar imagen {{ forloop.counter }} de {{ images|length }}">
+              <img src="{{ image.medium.url }}"
+                   srcset="{{ image.thumb.url }} 640w, {{ image.medium.url }} 1280w, {{ image.large.url }} 2000w"
+                   sizes="(min-width: 768px) 50vw, 100vw"
+                   alt="{{ image.alt }}" loading="lazy" decoding="async"
+                   class="w-full transition-opacity duration-300 hover:opacity-90">
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <dialog id="lightbox" class="m-0 h-full max-h-none w-full max-w-none bg-ink/95 p-0 text-paper backdrop:bg-ink/80" aria-label="Galería ampliada">
+      <div class="flex h-full flex-col">
+        <div class="flex items-center justify-between px-4 py-3 md:px-8">
+          <span class="eyebrow" data-lightbox-counter></span>
+          <button type="button" class="eyebrow p-2 hover:opacity-70" data-lightbox-close>Cerrar &times;</button>
+        </div>
+        <div class="relative flex flex-1 items-center justify-center overflow-hidden px-2 md:px-16">
+          <img data-lightbox-image alt="" class="max-h-full max-w-full object-contain">
+          <button type="button" class="absolute left-0 top-1/2 -translate-y-1/2 p-4 text-4xl hover:opacity-70" data-lightbox-prev aria-label="Imagen anterior">&lsaquo;</button>
+          <button type="button" class="absolute right-0 top-1/2 -translate-y-1/2 p-4 text-4xl hover:opacity-70" data-lightbox-next aria-label="Imagen siguiente">&rsaquo;</button>
+        </div>
+      </div>
+    </dialog>
+  {% endif %}
+
+  {# 8. Proyectos relacionados #}
+  {% if related %}
+    <section class="mt-24" aria-labelledby="relacionados">
+      <h2 id="relacionados" class="eyebrow text-ash">Otros proyectos</h2>
+      <div class="mt-8 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+        {% for project in related %}{% include "projects/_card.html" %}{% endfor %}
+      </div>
+    </section>
+  {% endif %}
+</article>
+
+{# 9. CTA final #}
+<section class="container-site mt-24 border-t border-line pt-20 text-center">
+  <h2 class="text-4xl md:text-5xl">¿Tenés un proyecto en mente?</h2>
+  <p class="mx-auto mt-4 max-w-md text-stone">Desde la idea hasta la obra terminada. La elegancia de lo esencial.</p>
+  <a href="/contacto/" class="btn-solid mt-8">Iniciar proyecto</a>
+</section>
+{% endblock %}

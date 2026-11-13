@@ -1,7 +1,9 @@
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models, transaction
+from django.db.models import Prefetch
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
+from django.urls import reverse
 
 from apps.core.images import SIZES, process_image
 
@@ -21,6 +23,22 @@ class ProjectType(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class ProjectQuerySet(models.QuerySet):
+    def published(self):
+        return self.filter(status=Project.Status.PUBLISHED)
+
+    def visible_to(self, user):
+        """Publicados para todos; el staff además puede previsualizar borradores."""
+        return self if user.is_staff else self.published()
+
+    def for_cards(self):
+        """Lo que necesita una tarjeta del portfolio, sin consultas N+1."""
+        images = ProjectImage.objects.order_by("-is_cover", "order", "id")
+        return self.select_related("project_type").prefetch_related(
+            Prefetch("images", queryset=images, to_attr="ordered_images")
+        )
 
 
 class Project(models.Model):
@@ -72,6 +90,8 @@ class Project(models.Model):
     created_at = models.DateTimeField("creado", auto_now_add=True)
     updated_at = models.DateTimeField("actualizado", auto_now=True)
 
+    objects = ProjectQuerySet.as_manager()
+
     class Meta:
         ordering = ["-year", "-created_at"]
         verbose_name = "proyecto"
@@ -83,6 +103,30 @@ class Project(models.Model):
     def save(self, *args, **kwargs):
         self.description = clean_html(self.description)
         super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse("projects:detail", args=[self.slug])
+
+    @property
+    def is_published(self):
+        return self.status == self.Status.PUBLISHED
+
+    @property
+    def cover(self):
+        """Portada; si no hay una marcada, la primera imagen. None si no tiene imágenes."""
+        if hasattr(self, "ordered_images"):  # precargada con for_cards()
+            return self.ordered_images[0] if self.ordered_images else None
+        return self.images.order_by("-is_cover", "order", "id").first()
+
+    def meta_items(self):
+        """Línea de metadatos de la ficha: ubicación · m² · año · tipo (omite lo vacío)."""
+        items = [
+            self.location,
+            f"{self.area_m2} m²" if self.area_m2 else "",
+            str(self.year) if self.year else "",
+            self.project_type.name,
+        ]
+        return [item for item in items if item]
 
 
 class ProjectFact(models.Model):

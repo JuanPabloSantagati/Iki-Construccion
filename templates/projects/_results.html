@@ -1,0 +1,47 @@
+{# Filtros + grilla. Es lo que HTMX reemplaza al filtrar (y actualiza la URL para compartirla). #}
+<div id="project-results">
+  <nav aria-label="Filtrar proyectos" class="flex flex-col gap-5 border-y border-line py-6 md:flex-row md:items-baseline md:gap-12">
+    <ul class="flex flex-wrap gap-x-6 gap-y-3">
+      <li>
+        <a href="?{% if type_slug %}tipo={{ type_slug }}{% endif %}"
+           hx-get="?{% if type_slug %}tipo={{ type_slug }}{% endif %}" hx-target="#project-results" hx-swap="outerHTML" hx-push-url="true"
+           class="eyebrow {% if not category %}text-ink underline underline-offset-8{% else %}text-ash hover:text-ink{% endif %}"
+           {% if not category %}aria-current="true"{% endif %}>Todos</a>
+      </li>
+      {% for value, label in categories %}
+      <li>
+        <a href="?categoria={{ value }}{% if type_slug %}&amp;tipo={{ type_slug }}{% endif %}"
+           hx-get="?categoria={{ value }}{% if type_slug %}&amp;tipo={{ type_slug }}{% endif %}" hx-target="#project-results" hx-swap="outerHTML" hx-push-url="true"
+           class="eyebrow {% if category == value %}text-ink underline underline-offset-8{% else %}text-ash hover:text-ink{% endif %}"
+           {% if category == value %}aria-current="true"{% endif %}>{{ label }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+    {% if types %}
+    <ul class="flex flex-wrap gap-x-6 gap-y-3 md:border-l md:border-line md:pl-12">
+      <li>
+        <a href="?{% if category %}categoria={{ category }}{% endif %}"
+           hx-get="?{% if category %}categoria={{ category }}{% endif %}" hx-target="#project-results" hx-swap="outerHTML" hx-push-url="true"
+           class="eyebrow {% if not type_slug %}text-ink underline underline-offset-8{% else %}text-ash hover:text-ink{% endif %}"
+           {% if not type_slug %}aria-current="true"{% endif %}>Todos los tipos</a>
+      </li>
+      {% for type in types %}
+      <li>
+        <a href="?{% if category %}categoria={{ category }}&amp;{% endif %}tipo={{ type.slug }}"
+           hx-get="?{% if category %}categoria={{ category }}&amp;{% endif %}tipo={{ type.slug }}" hx-target="#project-results" hx-swap="outerHTML" hx-push-url="true"
+           class="eyebrow {% if type_slug == type.slug %}text-ink underline underline-offset-8{% else %}text-ash hover:text-ink{% endif %}"
+           {% if type_slug == type.slug %}aria-current="true"{% endif %}>{{ type.name }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </nav>
+
+  {% if page.object_list %}
+    <div class="mt-12 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+      {% include "projects/_page.html" %}
+    </div>
+  {% else %}
+    <p class="mt-16 text-stone">Todavía no hay proyectos {% if category or type_slug %}con estos filtros{% else %}publicados{% endif %}.</p>
+  {% endif %}
+</div>

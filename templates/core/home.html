@@ -8,7 +8,7 @@
   <p class="mt-8 max-w-xl text-stone">Estamos construyendo nuestro sitio. Muy pronto vas a poder ver nuestras obras, renders y servicios.</p>
   <div class="mt-10 flex flex-wrap gap-4">
     <a href="/contacto/" class="btn-solid">Iniciar proyecto</a>
-    <a href="/proyectos/" class="btn-outline">Ver proyectos</a>
+    <a href="{% url 'projects:list' %}" class="btn-outline">Ver proyectos</a>
   </div>
 </section>
 {% endblock %}
