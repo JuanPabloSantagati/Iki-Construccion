@@ -9,3 +9,6 @@ Pillow
 whitenoise
 gunicorn
 nh3
+django-otp
+django-axes
+qrcode

@@ -32,6 +32,9 @@ STORAGES = {
 
 ADMIN_URL = env("ADMIN_URL", default="gestion-test/")
 
+# Los tests de admin usan force_login; los de 2FA lo vuelven a activar con override_settings.
+ADMIN_REQUIRE_2FA = False
+
 # Sirve los static desde las carpetas fuente, sin collectstatic.
 WHITENOISE_USE_FINDERS = True
 WHITENOISE_AUTOREFRESH = True
