@@ -28,8 +28,10 @@ Aunque la Data API esté apagada, habilitamos Row Level Security en **todas** la
 `public` **sin políticas** para `anon` / `authenticated` (= sin acceso). El rol con el que
 se conecta Django es dueño de las tablas, así que no le afecta.
 
-> En la etapa B esto se automatiza (se aplica después de cada `migrate` y hay un comando
-> que lo verifica). Mientras tanto, se puede correr a mano en el **SQL Editor**:
+> **Automatizado:** después de cada `python manage.py migrate`, Django activa RLS en las
+> tablas nuevas y les quita los permisos a `anon`/`authenticated` (`apps/core/security.py`).
+> Para verificar: `python manage.py check_supabase_security`. El SQL equivalente, por si hay
+> que hacerlo a mano en el **SQL Editor**:
 
 ```sql
 -- Habilitar RLS en todas las tablas de public
