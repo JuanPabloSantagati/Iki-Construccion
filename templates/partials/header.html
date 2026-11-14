@@ -6,6 +6,9 @@
       <a href="{% url 'core:studio' %}" class="eyebrow text-stone hover:text-ink">Estudio</a>
       <a href="{% url 'services:list' %}" class="eyebrow text-stone hover:text-ink">Servicios</a>
       <a href="{% url 'projects:list' %}" class="eyebrow text-stone hover:text-ink">Proyectos</a>
+      {% if site.instagram %}
+        <a href="{{ site.instagram }}" class="text-stone hover:text-ink" target="_blank" rel="noopener" aria-label="Instagram de IKI">{% include "partials/icon_instagram.html" %}</a>
+      {% endif %}
       <a href="{% url 'contact:form' %}" class="btn-outline">Iniciar proyecto</a>
     </nav>
 
@@ -16,6 +19,9 @@
         <a href="{% url 'core:studio' %}" class="eyebrow">Estudio</a>
         <a href="{% url 'services:list' %}" class="eyebrow">Servicios</a>
         <a href="{% url 'projects:list' %}" class="eyebrow">Proyectos</a>
+        {% if site.instagram %}
+          <a href="{{ site.instagram }}" class="eyebrow inline-flex items-center gap-2" target="_blank" rel="noopener">{% include "partials/icon_instagram.html" with class="size-4" %} Instagram</a>
+        {% endif %}
         <a href="{% url 'contact:form' %}" class="btn-solid">Iniciar proyecto</a>
       </nav>
     </details>

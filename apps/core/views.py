@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from django.templatetags.static import static
 
 from apps.projects.models import Project
 from apps.services.models import Service
@@ -17,6 +18,11 @@ def home(request):
         "services": Service.objects.published(),
     }
     return render(request, "core/home.html", context)
+
+
+def favicon(request):
+    # Al pedirlo (no al importar urls.py): con el manifest de static, la URL lleva hash.
+    return redirect(static("img/favicon.ico"), permanent=True)
 
 
 def privacy(request):
