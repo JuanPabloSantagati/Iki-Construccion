@@ -1,4 +1,14 @@
 from django.db import models
+from django.urls import reverse
+
+
+class ServiceQuerySet(models.QuerySet):
+    def published(self):
+        return self.filter(is_published=True)
+
+    def visible_to(self, user):
+        """Publicados para todos; el staff además puede previsualizar borradores."""
+        return self if user.is_staff else self.published()
 
 
 class Service(models.Model):
@@ -11,6 +21,8 @@ class Service(models.Model):
     order = models.PositiveSmallIntegerField("orden", default=0)
     is_published = models.BooleanField("publicado", default=False)
 
+    objects = ServiceQuerySet.as_manager()
+
     class Meta:
         ordering = ["order", "title"]
         verbose_name = "servicio"
@@ -18,6 +30,9 @@ class Service(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse("services:detail", args=[self.slug])
 
 
 class ServiceStep(models.Model):

@@ -22,17 +22,29 @@ ZONES = [
     ("san-antonio-de-areco", "San Antonio de Areco"),
 ]
 
-# (slug, título, resumen, pasos). Borradores genéricos: se revisan y publican desde el admin.
+# Los 5 servicios de IKI: (slug, título, resumen, pasos).
+# Borradores: los socios revisan textos y pasos y los publican desde el admin.
 SERVICES = [
     (
-        "diseno-arquitectonico",
-        "Diseño arquitectónico",
-        "Del primer boceto al proyecto ejecutivo, pensado para cómo vivís y trabajás.",
+        "proyecto-y-anteproyecto",
+        "Proyecto y anteproyecto",
+        "Del primer boceto al proyecto completo, pensado para cómo vivís y trabajás.",
         [
             "Entrevista y relevamiento",
             "Anteproyecto",
-            "Proyecto ejecutivo",
-            "Documentación y trámites",
+            "Ajustes con el cliente",
+            "Proyecto final y documentación",
+        ],
+    ),
+    (
+        "renders",
+        "Renders",
+        "Imágenes realistas para ver el proyecto terminado antes de construirlo.",
+        [
+            "Recepción de planos o ideas",
+            "Modelado 3D",
+            "Revisión con el cliente",
+            "Entrega de imágenes finales",
         ],
     ),
     (
@@ -40,33 +52,32 @@ SERVICES = [
         "Dirección de obra",
         "Seguimiento técnico para que la obra respete el proyecto, los plazos y el presupuesto.",
         [
-            "Planificación y presupuesto",
+            "Planificación",
             "Seguimiento en obra",
             "Control de calidad y plazos",
-            "Entrega final",
+            "Entrega",
         ],
     ),
     (
-        "construccion",
-        "Construcción",
-        "Ejecución de la obra completa, con equipo propio y terminaciones cuidadas.",
-        ["Presupuesto y contrato", "Ejecución", "Terminaciones", "Entrega"],
-    ),
-    (
-        "reformas-y-ampliaciones",
-        "Reformas y ampliaciones",
-        "Renovamos y ampliamos espacios existentes con la menor interrupción posible.",
-        ["Relevamiento del estado actual", "Propuesta y presupuesto", "Obra", "Entrega"],
-    ),
-    (
-        "renders-3d",
-        "Renders y visualización 3D",
-        "Imágenes realistas para ver el proyecto terminado antes de construirlo.",
+        "planos-municipales",
+        "Planos municipales",
+        "Planos y gestiones para registrar o aprobar tu obra ante el municipio.",
         [
-            "Recepción de planos",
-            "Modelado 3D",
-            "Revisión con el cliente",
-            "Entrega de imágenes finales",
+            "Relevamiento",
+            "Planos según el código de edificación local",
+            "Presentación en la municipalidad",
+            "Seguimiento hasta la aprobación",
+        ],
+    ),
+    (
+        "agrimensura-y-legajos",
+        "Agrimensura y legajos",
+        "Mensuras, estudio de antecedentes y legajos para que tu terreno esté en regla.",
+        [
+            "Relevamiento y mensura del terreno",
+            "Estudio de títulos y antecedentes",
+            "Planos y legajo",
+            "Presentación y registro",
         ],
     ),
 ]
