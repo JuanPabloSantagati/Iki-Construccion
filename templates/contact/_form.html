@@ -1,0 +1,40 @@
+{# Formulario de contacto. Con HTMX se envía sin recargar y este bloque se reemplaza por la respuesta. #}
+<form method="post" action="{% url 'contact:form' %}" class="form-iki space-y-8" novalidate
+      hx-post="{% url 'contact:form' %}" hx-target="this" hx-swap="outerHTML" hx-disabled-elt="find button[type=submit]">
+  {% csrf_token %}
+  {{ form.started }}
+
+  {# Errores generales y del campo oculto (formulario vencido) #}
+  {% if form.non_field_errors or form.started.errors %}
+    <div class="border-l-2 border-ink bg-mist px-4 py-3 text-sm" role="alert">
+      {% for error in form.non_field_errors %}<p>{{ error }}</p>{% endfor %}
+      {% for error in form.started.errors %}<p>{{ error }}</p>{% endfor %}
+    </div>
+  {% endif %}
+
+  <div class="grid gap-8 sm:grid-cols-2">
+    {% include "contact/_field.html" with field=form.name %}
+    {% include "contact/_field.html" with field=form.phone %}
+    {% include "contact/_field.html" with field=form.email %}
+    {% include "contact/_field.html" with field=form.service %}
+    {% include "contact/_field.html" with field=form.location %}
+    {% include "contact/_field.html" with field=form.approx_area %}
+  </div>
+  {% include "contact/_field.html" with field=form.message %}
+
+  {# Honeypot: fuera de pantalla para las personas y oculto para lectores de pantalla #}
+  <div class="absolute -left-[10000px] h-px w-px overflow-hidden" aria-hidden="true">
+    <label for="{{ form.website.id_for_label }}">No completar</label>
+    {{ form.website }}
+  </div>
+
+  <div>
+    <label class="flex items-start gap-3 text-sm text-stone">
+      <input type="checkbox" name="{{ form.consent.html_name }}" id="{{ form.consent.id_for_label }}" class="mt-1 size-4 accent-ink" {% if form.consent.value %}checked{% endif %} required>
+      <span>Acepto que IKI use estos datos solo para responder mi consulta, según la <a href="{% url 'core:privacy' %}" class="text-ink underline underline-offset-4" target="_blank">política de privacidad</a>.</span>
+    </label>
+    {% if form.consent.errors %}<p class="mt-2 text-sm text-ink">Para enviar la consulta tenés que aceptar la política de privacidad.</p>{% endif %}
+  </div>
+
+  <button type="submit" class="btn-solid w-full sm:w-auto">Enviar consulta</button>
+</form>

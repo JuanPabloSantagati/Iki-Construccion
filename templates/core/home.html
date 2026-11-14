@@ -7,7 +7,7 @@
   <h1 class="mt-6 max-w-4xl text-5xl leading-[1.05] md:text-8xl">La elegancia de lo esencial</h1>
   <p class="mt-8 max-w-xl text-stone">Proyectamos, documentamos y dirigimos obras con una idea simple: que cada espacio tenga solo lo que necesita, y que eso sea suficiente.</p>
   <div class="mt-10 flex flex-col gap-3 sm:flex-row">
-    <a href="/contacto/" class="btn-solid">Iniciar proyecto</a>
+    <a href="{% url 'contact:form' %}" class="btn-solid">Iniciar proyecto</a>
     <a href="{% url 'projects:list' %}" class="btn-outline">Ver proyectos</a>
   </div>
 </section>

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Política de privacidad | IKI Diseño & Construcción{% endblock %}
+{% block meta_description %}Cómo IKI trata los datos personales que recibe por su sitio web (Ley 25.326).{% endblock %}
+
+{% block content %}
+{# Texto base: conviene que lo revise un asesor legal antes de publicar el sitio. #}
+<article class="container-site max-w-3xl pt-16 md:pt-28">
+  <p class="eyebrow text-ash">Legal</p>
+  <h1 class="mt-6 text-5xl md:text-6xl">Política de privacidad</h1>
+  <p class="mt-6 text-sm text-ash">Última actualización: noviembre de 2026</p>
+
+  <div class="rich-text mt-12 text-stone">
+    <h3>Quién es responsable de tus datos</h3>
+    <p>IKI Diseño &amp; Construcción{% if site.address %}, {{ site.address }}{% endif %}, es responsable de los datos que nos enviás a través de este sitio{% if site.email %}. Podés escribirnos a <a href="mailto:{{ site.email }}">{{ site.email }}</a>{% endif %}.</p>
+
+    <h3>Qué datos recolectamos</h3>
+    <p>Solo los que completás en el formulario de contacto: nombre, email, teléfono, el servicio que te interesa, la ubicación aproximada del terreno u obra, los m² aproximados y tu mensaje. No guardamos tu dirección IP ni datos de tu navegador junto con la consulta.</p>
+
+    <h3>Para qué los usamos</h3>
+    <p>Únicamente para responder tu consulta y, si avanzamos, coordinar el proyecto. No los usamos para publicidad ni los vendemos o cedemos a terceros. Los datos se alojan en proveedores de infraestructura (base de datos, envío de correo) que los procesan solo para prestarnos ese servicio.</p>
+
+    <h3>Cuánto tiempo los guardamos</h3>
+    <p>Mientras sean necesarios para responder y dar seguimiento a tu consulta. Las consultas de más de 24 meses se anonimizan: se borran tus datos de contacto y el mensaje.</p>
+
+    <h3>Tus derechos</h3>
+    <p>Podés pedirnos en cualquier momento acceder a tus datos, corregirlos o eliminarlos. El acceso es gratuito en intervalos no inferiores a seis meses, salvo que acredites un interés legítimo (art. 14, inc. 3, Ley 25.326). Respondemos los pedidos de acceso dentro de los 10 días corridos y los de rectificación o supresión dentro de los 5 días hábiles.</p>
+    <p>LA AGENCIA DE ACCESO A LA INFORMACIÓN PÚBLICA, en su carácter de Órgano de Control de la Ley N° 25.326, tiene la atribución de atender las denuncias y reclamos que interpongan quienes resulten afectados en sus derechos por incumplimiento de las normas vigentes en materia de protección de datos personales.</p>
+
+    <h3>Cookies</h3>
+    <p>Este sitio solo usa cookies técnicas necesarias para su funcionamiento y seguridad (por ejemplo, la protección del formulario). No usamos cookies de publicidad ni de seguimiento de terceros.</p>
+  </div>
+</article>
+{% endblock %}

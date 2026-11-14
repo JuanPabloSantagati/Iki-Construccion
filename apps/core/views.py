@@ -19,6 +19,10 @@ def home(request):
     return render(request, "core/home.html", context)
 
 
+def privacy(request):
+    return render(request, "core/privacy.html")
+
+
 def studio(request):
     context = {"team": TeamMember.objects.all()}
     return render(request, "core/studio.html", context)

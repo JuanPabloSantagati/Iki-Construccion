@@ -10,8 +10,6 @@ SECRET_KEY = env("SECRET_KEY", default="") or "dev-insecure-solo-para-desarrollo
 
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["localhost", "127.0.0.1"])
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-
 # Sirve los static desde las carpetas fuente, sin collectstatic.
 WHITENOISE_USE_FINDERS = True
 WHITENOISE_AUTOREFRESH = True
