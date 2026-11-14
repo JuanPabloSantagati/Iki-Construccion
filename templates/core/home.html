@@ -14,14 +14,16 @@
 
 {% if hero %}
   {% with cover=hero.cover %}
-  <a href="{{ hero.get_absolute_url }}" class="group block">
+  <a href="{{ hero.get_absolute_url }}" class="container-site group block">
     {% if cover %}
-      <img src="{{ cover.large.url }}"
-           srcset="{{ cover.medium.url }} 1280w, {{ cover.large.url }} 2000w"
-           sizes="100vw" alt="{{ cover.alt }}" fetchpriority="high"
-           class="h-[60svh] w-full object-cover md:h-[85svh]">
+      <div class="overflow-hidden bg-mist">
+        <img src="{{ cover.large.url }}"
+             srcset="{{ cover.medium.url }} 1280w, {{ cover.large.url }} 2000w"
+             sizes="(min-width: 1400px) 1300px, 100vw" alt="{{ cover.alt }}" fetchpriority="high"
+             class="aspect-[4/3] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02] md:aspect-[16/9] lg:max-h-[70svh]">
+      </div>
     {% endif %}
-    <div class="container-site flex flex-col gap-1 pt-5 md:flex-row md:items-baseline md:justify-between">
+    <div class="flex flex-col gap-1 pt-5 md:flex-row md:items-baseline md:justify-between">
       <p class="font-display text-2xl md:text-3xl">{{ hero.title }}</p>
       <p class="eyebrow text-ash group-hover:text-ink">{{ hero.meta_items|join:" · " }} &rarr;</p>
     </div>

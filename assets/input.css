@@ -57,7 +57,7 @@
     @apply bg-paper text-ink font-sans antialiased;
   }
   h1, h2, h3 {
-    @apply font-display font-light tracking-tight;
+    @apply font-display font-normal tracking-tight;
   }
 }
 
@@ -67,11 +67,11 @@
   }
   /* Etiqueta de navegación / metadatos: mayúsculas chicas con tracking amplio */
   .eyebrow {
-    @apply font-sans text-[11px] font-medium uppercase tracking-[0.2em] md:text-xs;
+    @apply font-sans text-[11px] font-semibold uppercase tracking-[0.2em] md:text-xs;
   }
   .btn-outline {
     @apply inline-flex items-center justify-center border border-ink px-5 py-3 text-xs
-      font-medium uppercase tracking-[0.16em] transition-colors duration-300
+      font-semibold uppercase tracking-[0.16em] transition-colors duration-300
       hover:bg-ink hover:text-paper focus-visible:outline-2 focus-visible:outline-offset-2;
   }
   /* Texto con formato cargado desde el admin (ya sanitizado con nh3) */
@@ -102,7 +102,7 @@
       text-base text-ink placeholder:text-ash focus:border-ink focus:outline-none focus:ring-0;
   }
   .btn-solid {
-    @apply inline-flex items-center justify-center bg-ink px-5 py-3 text-xs font-medium
+    @apply inline-flex items-center justify-center bg-ink px-5 py-3 text-xs font-semibold
       uppercase tracking-[0.16em] text-paper transition-colors duration-300 hover:bg-graphite
       focus-visible:outline-2 focus-visible:outline-offset-2;
   }
