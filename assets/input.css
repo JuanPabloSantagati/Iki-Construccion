@@ -29,6 +29,20 @@
 }
 @font-face {
   font-family: "Cormorant Garamond";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../fonts/cormorant-garamond-latin-600-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Cormorant Garamond";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/cormorant-garamond-latin-700-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Cormorant Garamond";
   font-style: italic;
   font-weight: 400;
   font-display: swap;
@@ -57,7 +71,7 @@
     @apply bg-paper text-ink font-sans antialiased;
   }
   h1, h2, h3 {
-    @apply font-display font-normal tracking-tight;
+    @apply font-display font-semibold tracking-tight;
   }
 }
 
