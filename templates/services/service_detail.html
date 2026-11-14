@@ -13,7 +13,7 @@
   <p class="bg-ink py-3 text-center text-xs uppercase tracking-[0.16em] text-paper">Borrador: solo lo ve el equipo</p>
 {% endif %}
 
-<article class="container-site pt-16 md:pt-28">
+<article class="container-site pt-10 md:pt-16">
   <a href="{% url 'services:list' %}" class="eyebrow text-ash hover:text-ink">&larr; Todos los servicios</a>
   <h1 class="mt-6 max-w-4xl text-5xl leading-[1.05] md:text-7xl">{{ service.title }}</h1>
   {% if service.summary %}<p class="mt-8 max-w-2xl font-display text-2xl leading-snug md:text-3xl">{{ service.summary }}</p>{% endif %}
