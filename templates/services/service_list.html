@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Servicios | IKI Diseño & Construcción{% endblock %}
+{% block meta_description %}Proyecto y anteproyecto, renders, dirección de obra, planos municipales y agrimensura en Baradero y la zona.{% endblock %}
+
+{% block content %}
+<section class="container-site pt-16 md:pt-28">
+  <p class="eyebrow text-ash">Servicios</p>
+  <h1 class="mt-6 max-w-4xl text-5xl leading-[1.05] md:text-7xl">Soluciones integrales para tu proyecto</h1>
+  <p class="mt-8 max-w-2xl text-lg text-stone">Del primer boceto a la obra terminada, con los trámites resueltos. Podés contratarnos para todo el recorrido o para una etapa puntual.</p>
+
+  {% if services %}
+    <ul class="mt-16 border-t border-line">
+      {% for service in services %}
+        <li class="border-b border-line">
+          <a href="{{ service.get_absolute_url }}" class="group grid gap-3 py-8 md:grid-cols-12 md:gap-8 md:py-10">
+            <span class="eyebrow text-ash md:col-span-1">{{ forloop.counter|stringformat:"02d" }}</span>
+            <div class="md:col-span-6">
+              <h2 class="text-3xl md:text-5xl">{{ service.title }}</h2>
+              <p class="mt-3 text-stone">{{ service.summary }}</p>
+            </div>
+            <ol class="space-y-1 text-sm text-stone md:col-span-4 md:pt-2">
+              {% for step in service.steps.all %}<li>{{ forloop.counter }}. {{ step.title }}</li>{% endfor %}
+            </ol>
+            <span class="hidden text-right text-xl transition-transform group-hover:translate-x-1 md:col-span-1 md:block" aria-hidden="true">&rarr;</span>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="mt-16 text-stone">Muy pronto vas a encontrar acá el detalle de nuestros servicios.</p>
+  {% endif %}
+</section>
+
+{% include "partials/cta_final.html" %}
+{% endblock %}
