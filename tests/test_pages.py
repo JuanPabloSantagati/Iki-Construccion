@@ -176,3 +176,36 @@ def test_menu_linkea_a_las_secciones(client, url):
     body = client.get(url).content.decode()
     for href in ('href="/estudio/"', 'href="/servicios/"', 'href="/proyectos/"'):
         assert href in body
+
+
+# --- Marca y créditos ---------------------------------------------------------
+
+
+def test_favicon_declarado_y_ruta_raiz(client):
+    body = client.get("/").content.decode()
+    assert "img/favicon.svg" in body
+    assert "img/apple-touch-icon.png" in body
+    response = client.get("/favicon.ico")
+    assert response.status_code == 301
+    assert response.headers["Location"].endswith("img/favicon.ico")
+
+
+def test_instagram_de_iki_en_header_y_footer(client):
+    SiteSettings.objects.create(instagram="https://www.instagram.com/ikiproyectos/")
+    body = client.get("/").content.decode()
+    assert body.count('href="https://www.instagram.com/ikiproyectos/"') >= 3  # header, menú, footer
+    assert 'aria-label="Instagram de IKI"' in body
+
+
+def test_sin_instagram_no_hay_links_vacios(client):
+    body = client.get("/").content.decode()
+    assert 'aria-label="Instagram de IKI"' not in body
+
+
+@pytest.mark.parametrize("url", ["/", "/proyectos/", "/contacto/", "/privacidad/"])
+def test_credito_de_itera_en_el_footer(client, url):
+    body = client.get(url).content.decode()
+    assert "Sitio creado por" in body
+    assert 'href="https://iterarg.com/"' in body
+    assert 'href="https://www.instagram.com/itera.soft/"' in body
+    assert 'href="https://wa.me/5493413055256"' in body
