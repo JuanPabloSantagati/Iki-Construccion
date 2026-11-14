@@ -18,6 +18,19 @@ def _site_settings():
         return SiteSettings()
 
 
+def _footer_services():
+    from apps.services.models import Service
+
+    try:
+        return list(Service.objects.published().only("title", "slug"))
+    except DatabaseError:
+        logger.exception("No se pudieron leer los servicios del footer")
+        return []
+
+
 def site_settings(request):
-    """`site` en todos los templates; la consulta se hace solo si un template la usa."""
-    return {"site": SimpleLazyObject(_site_settings)}
+    """`site` y `footer_services` en todos los templates; se consultan solo si se usan."""
+    return {
+        "site": SimpleLazyObject(_site_settings),
+        "footer_services": SimpleLazyObject(_footer_services),
+    }

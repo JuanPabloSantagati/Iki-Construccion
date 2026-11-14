@@ -71,6 +71,14 @@ def test_home_muestra_solo_servicios_publicados(client):
     assert "Oculto" not in body
 
 
+def test_footer_lista_solo_servicios_publicados(client):
+    make_service("renders")
+    make_service("oculto", published=False)
+    footer = client.get(reverse("core:studio")).content.decode().split("<footer")[1]
+    assert 'href="/servicios/renders/"' in footer
+    assert "Oculto" not in footer
+
+
 def test_home_vacia_no_rompe(client):
     response = client.get("/")
     assert response.status_code == 200
