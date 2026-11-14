@@ -76,3 +76,11 @@ def test_manage_py_usa_dev_y_wsgi_usa_prod():
     assert "config.settings.dev" in (ROOT / "manage.py").read_text()
     assert "config.settings.prod" in (ROOT / "config" / "wsgi.py").read_text()
     assert "config.settings.prod" in (ROOT / "config" / "asgi.py").read_text()
+
+
+def test_los_tests_no_usan_la_base_del_env():
+    # Aunque el .env apunte a Supabase, pytest usa SQLite local o el Postgres del CI.
+    from django.conf import settings
+
+    host = settings.DATABASES["default"].get("HOST", "")
+    assert "supabase" not in host

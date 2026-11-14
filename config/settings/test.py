@@ -1,9 +1,16 @@
-"""Settings para pytest. Usa DATABASE_URL si está definida (Postgres en CI), si no SQLite."""
+"""Settings para pytest. Usa DATABASE_URL si está definida (Postgres en CI), si no SQLite.
 
+Los tests NUNCA leen el .env: así no pueden conectarse a la base ni al Storage de Supabase
+que cada uno tiene configurados para desarrollo.
+"""
+
+import os
 import tempfile
 
-from .base import *  # noqa: F403
-from .base import env
+os.environ["DJANGO_READ_DOT_ENV"] = "0"
+
+from .base import *  # noqa: E402, F403
+from .base import env  # noqa: E402
 
 DEBUG = False
 SECRET_KEY = "test-insecure-solo-para-tests"  # noqa: S105

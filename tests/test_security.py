@@ -4,6 +4,9 @@ import pytest
 from django.conf import settings
 from django.test import Client
 
+# Header y footer leen la configuración del sitio de la base.
+pytestmark = pytest.mark.django_db
+
 
 @pytest.fixture
 def response(client):

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Proyectos | IKI Diseño & Construcción{% endblock %}
+{% block meta_description %}Obras, proyectos y renders de IKI, estudio de arquitectura en Baradero, Buenos Aires.{% endblock %}
+
+{% block content %}
+<section class="container-site pt-16 pb-24 md:pt-24">
+  <p class="eyebrow text-ash">Portfolio</p>
+  <h1 class="mt-4 text-5xl md:text-7xl">Proyectos</h1>
+  <p class="mt-6 max-w-xl text-stone">Obras terminadas, proyectos en curso y renders. Cada uno, una respuesta simple a una necesidad concreta.</p>
+  <div class="mt-12">
+    {% include "projects/_results.html" %}
+  </div>
+</section>
+{% endblock %}

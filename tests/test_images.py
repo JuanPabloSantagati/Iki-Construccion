@@ -87,3 +87,10 @@ def test_rechaza_demasiados_pixeles():
 def test_rechaza_archivo_demasiado_pesado():
     with pytest.raises(ValidationError):
         process_image(upload(b"\0" * (MAX_UPLOAD_BYTES + 1)))
+
+
+def test_webp_tiene_content_type_de_imagen():
+    # El bucket de Supabase solo acepta image/webp; django-storages usa mimetypes para el header.
+    import mimetypes
+
+    assert mimetypes.guess_type("foto.webp")[0] == "image/webp"

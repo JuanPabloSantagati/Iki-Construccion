@@ -1,0 +1,12 @@
+{# Una página de tarjetas + el botón "Ver más". HTMX reemplaza el botón por la página siguiente. #}
+{% for project in page %}
+  {% include "projects/_card.html" %}
+{% endfor %}
+{% if page.has_next %}
+  <div id="load-more" class="col-span-full flex justify-center pt-4">
+    <a href="?{% if category %}categoria={{ category }}&amp;{% endif %}{% if type_slug %}tipo={{ type_slug }}&amp;{% endif %}pagina={{ page.next_page_number }}"
+       hx-get="?{% if category %}categoria={{ category }}&amp;{% endif %}{% if type_slug %}tipo={{ type_slug }}&amp;{% endif %}pagina={{ page.next_page_number }}"
+       hx-target="#load-more" hx-swap="outerHTML"
+       class="btn-outline">Ver más proyectos</a>
+  </div>
+{% endif %}

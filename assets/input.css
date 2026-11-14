@@ -67,12 +67,32 @@
   }
   /* Etiqueta de navegación / metadatos: mayúsculas chicas con tracking amplio */
   .eyebrow {
-    @apply text-[11px] font-medium uppercase tracking-[0.2em] md:text-xs;
+    @apply font-sans text-[11px] font-medium uppercase tracking-[0.2em] md:text-xs;
   }
   .btn-outline {
     @apply inline-flex items-center justify-center border border-ink px-5 py-3 text-xs
       font-medium uppercase tracking-[0.16em] transition-colors duration-300
       hover:bg-ink hover:text-paper focus-visible:outline-2 focus-visible:outline-offset-2;
+  }
+  /* Texto con formato cargado desde el admin (ya sanitizado con nh3) */
+  .rich-text {
+    @apply space-y-4 leading-relaxed;
+  }
+  .rich-text h3,
+  .rich-text h4 {
+    @apply pt-4 font-display text-2xl text-ink;
+  }
+  .rich-text ul {
+    @apply list-disc space-y-1 pl-5;
+  }
+  .rich-text ol {
+    @apply list-decimal space-y-1 pl-5;
+  }
+  .rich-text a {
+    @apply text-ink underline underline-offset-4;
+  }
+  .rich-text blockquote {
+    @apply border-l border-ink pl-4 italic;
   }
   .btn-solid {
     @apply inline-flex items-center justify-center bg-ink px-5 py-3 text-xs font-medium
