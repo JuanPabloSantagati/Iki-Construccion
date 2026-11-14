@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load iki %}
+
+{% block title %}Iniciar proyecto | IKI Diseño & Construcción{% endblock %}
+{% block meta_description %}Contanos tu proyecto: vivienda, local, reforma, planos municipales o agrimensura en Baradero y la zona.{% endblock %}
+
+{% block content %}
+<section class="container-site grid gap-16 pt-16 md:pt-28 lg:grid-cols-12">
+  <div class="lg:col-span-5">
+    <p class="eyebrow text-ash">Contacto</p>
+    <h1 class="mt-6 text-5xl leading-[1.05] md:text-7xl">Iniciar proyecto</h1>
+    <p class="mt-8 max-w-md text-lg text-stone">Contanos qué tenés en mente. Te respondemos a la brevedad para coordinar una primera charla.</p>
+
+    <div class="mt-12 space-y-6 border-t border-line pt-8">
+      {% whatsapp_url site.whatsapp "Hola IKI, quiero hacer una consulta." as wa %}
+      {% if wa %}
+        <div>
+          <p class="eyebrow text-ash">¿Preferís WhatsApp?</p>
+          <a href="{{ wa }}" class="btn-outline mt-3" target="_blank" rel="noopener">Escribinos por WhatsApp</a>
+        </div>
+      {% endif %}
+      {% if site.phone %}
+        <div><p class="eyebrow text-ash">Teléfono</p><a href="{{ site.phone|tel_href }}" class="mt-1 block hover:underline">{{ site.phone }}</a></div>
+      {% endif %}
+      {% if site.email %}
+        <div><p class="eyebrow text-ash">Email</p><a href="mailto:{{ site.email }}" class="mt-1 block hover:underline">{{ site.email }}</a></div>
+      {% endif %}
+      {% if site.address %}
+        <div><p class="eyebrow text-ash">Estudio</p><p class="mt-1">{{ site.address }}</p></div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="relative lg:col-span-7">
+    {% include "contact/_form.html" %}
+  </div>
+</section>
+{% endblock %}
