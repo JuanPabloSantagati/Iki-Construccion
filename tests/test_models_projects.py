@@ -45,7 +45,7 @@ def test_project_slug_unico(project_type):
 
 
 def test_project_categorias():
-    assert [c.value for c in Project.Category] == ["obra", "proyecto", "render"]
+    assert [c.value for c in Project.Category] == ["obra", "en_obra", "render"]
 
 
 def test_descripcion_se_sanitiza_al_guardar(project_type):

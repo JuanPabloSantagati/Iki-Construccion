@@ -47,9 +47,9 @@ class Project(models.Model):
         PUBLISHED = "published", "Publicado"
 
     class Category(models.TextChoices):
-        OBRA = "obra", "Obra"
-        PROYECTO = "proyecto", "Proyecto"
-        RENDER = "render", "Render"
+        OBRA = "obra", "Obra terminada"
+        EN_OBRA = "en_obra", "En construcción"
+        RENDER = "render", "Render / Anteproyecto"
 
     title = models.CharField("título", max_length=150)
     slug = models.SlugField("slug", unique=True)
