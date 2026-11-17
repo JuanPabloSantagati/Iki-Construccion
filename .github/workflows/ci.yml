@@ -102,6 +102,8 @@ jobs:
           ALLOWED_HOSTS: iki.example
           CSRF_TRUSTED_ORIGINS: https://iki.example
           ADMIN_URL: panel-ci/
+          EMAIL_URL: smtp+tls://ci:no-real@smtp.example:587
+          CONTACT_NOTIFY_EMAIL: avisos@iki.example
         run: |
           # Clave aleatoria por ejecución: no es un secreto, se descarta al terminar.
           export SECRET_KEY="$(python -c 'import secrets; print(secrets.token_urlsafe(64))')"
