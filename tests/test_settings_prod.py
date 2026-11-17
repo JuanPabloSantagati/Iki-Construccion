@@ -84,3 +84,17 @@ def test_los_tests_no_usan_la_base_del_env():
 
     host = settings.DATABASES["default"].get("HOST", "")
     assert "supabase" not in host
+
+
+@pytest.mark.parametrize("name", ["EMAIL_URL", "CONTACT_NOTIFY_EMAIL"])
+def test_prod_falla_sin_configuracion_de_mail(django_proc, name):
+    result = django_proc("", **{name: None})
+    assert result.returncode != 0
+    assert name in result.stderr
+
+
+def test_prod_usa_cache_compartida_entre_workers(django_proc):
+    result = django_proc(
+        "from django.conf import settings; print(settings.CACHES['default']['BACKEND'])"
+    )
+    assert result.stdout.strip().endswith("FileBasedCache")

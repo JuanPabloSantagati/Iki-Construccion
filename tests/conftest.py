@@ -16,6 +16,8 @@ PROD_ENV = {
     "CSRF_TRUSTED_ORIGINS": "https://iki.example",
     "ADMIN_URL": "panel-prueba/",
     "DATABASE_URL": "postgres://iki@localhost:5432/iki",
+    "EMAIL_URL": "smtp+tls://prueba:no-real@smtp.example:587",
+    "CONTACT_NOTIFY_EMAIL": "avisos@iki.example",
 }
 
 # Variables que podrían venir del entorno del desarrollador y alterar el resultado.
