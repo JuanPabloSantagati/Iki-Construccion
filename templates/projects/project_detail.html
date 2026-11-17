@@ -4,6 +4,12 @@
 {% block title %}{{ project.seo_title|default:project.title }} | IKI Diseño & Construcción{% endblock %}
 {% block meta_description %}{{ project.seo_description|default:project.summary|default:"Proyecto de IKI, estudio de arquitectura en Baradero." }}{% endblock %}
 
+{% block og_type %}article{% endblock %}
+{% block og_title %}{{ project.seo_title|default:project.title }}{% endblock %}
+{% block og_description %}{{ project.seo_description|default:project.summary|default:"Proyecto de IKI, estudio de arquitectura en Baradero." }}{% endblock %}
+{% block og_image %}{% with cover=project.cover %}{% if cover %}{% absolute_url cover.large.url as og_img %}<meta property="og:image" content="{{ og_img }}">
+  <meta property="og:image:alt" content="{{ cover.alt }}">{% endif %}{% endwith %}{% endblock %}
+
 {% block extra_head %}
   {% if not project.is_published %}<meta name="robots" content="noindex">{% endif %}
   <script src="{% static 'js/lightbox.js' %}" defer></script>

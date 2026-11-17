@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+{% load iki %}
+
+{% block extra_head %}{% local_business_ld %}{% endblock %}
 
 {% block content %}
 {# 1. Hero: lema + obra destacada #}

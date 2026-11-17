@@ -1,8 +1,9 @@
+import json
 import re
 from urllib.parse import quote
 
 from django import template
-from django.utils.html import linebreaks
+from django.utils.html import format_html, linebreaks
 from django.utils.safestring import mark_safe
 
 from apps.projects.sanitize import clean_html
@@ -44,3 +45,41 @@ def tel_href(phone):
     if not digits:
         return ""
     return f"tel:{'+' if phone.startswith('+') else ''}{digits}"
+
+
+@register.simple_tag(takes_context=True)
+def absolute_url(context, path):
+    """URL absoluta (para canonical y Open Graph). El host ya lo validó ALLOWED_HOSTS."""
+    return context["request"].build_absolute_uri(path)
+
+
+@register.simple_tag(takes_context=True)
+def local_business_ld(context):
+    """JSON-LD de la empresa para buscadores, con los datos de contacto del sitio."""
+    site = context["site"]
+    data = {
+        "@context": "https://schema.org",
+        "@type": "HomeAndConstructionBusiness",
+        "name": "IKI Diseño & Construcción",
+        "url": context["request"].build_absolute_uri("/"),
+        "description": "Estudio de arquitectura en Baradero: proyectos, renders, dirección de "
+        "obra, planos municipales y agrimensura.",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Baradero",
+            "addressRegion": "Buenos Aires",
+            "addressCountry": "AR",
+        },
+    }
+    if site.phone:
+        data["telephone"] = site.phone
+    if site.email:
+        data["email"] = site.email
+    same_as = [url for url in (site.instagram, site.facebook) if url]
+    if same_as:
+        data["sameAs"] = same_as
+    # json.dumps + escape de < > & (como json_script de Django): el texto del admin no puede
+    # cerrar el <script>. No es mark_safe sobre HTML de usuarios, es JSON ya escapado.
+    payload = json.dumps(data, ensure_ascii=False)
+    payload = payload.replace("<", "\\u003c").replace(">", "\\u003e").replace("&", "\\u0026")
+    return format_html('<script type="application/ld+json">{}</script>', mark_safe(payload))  # noqa: S308
