@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sitemaps",
     "storages",
     "django_otp",
     "django_otp.plugins.otp_totp",
@@ -44,6 +45,7 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "apps.core.middleware.PermissionsPolicyMiddleware",
+    "apps.core.middleware.ContentSecurityPolicyMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -159,6 +161,15 @@ FILE_UPLOAD_MAX_MEMORY_SIZE = 5 * 1024 * 1024
 # MEDIA_STORAGE=local     → disco (MEDIA_ROOT). Default, sin credenciales.
 # MEDIA_STORAGE=supabase  → Supabase Storage vía API S3. Requiere las credenciales S3.
 MEDIA_STORAGE = env("MEDIA_STORAGE", default="local")
+
+# CSP: de dónde puede cargar imágenes el navegador (además de 'self'): el dominio público de
+# Supabase Storage cuando las fotos viven ahí. CSP_REPORT_ONLY=True solo informa, no bloquea.
+CSP_IMG_HOST = (
+    "https://" + env("SUPABASE_URL", default="").removeprefix("https://").rstrip("/")
+    if MEDIA_STORAGE == "supabase"
+    else ""
+)
+CSP_REPORT_ONLY = env.bool("CSP_REPORT_ONLY", default=False)
 
 
 def _required(name):

@@ -4,6 +4,9 @@
 {% block title %}{{ service.title }} en Baradero | IKI Diseño & Construcción{% endblock %}
 {% block meta_description %}{{ service.summary|default:"Servicio de IKI, estudio de arquitectura en Baradero." }}{% endblock %}
 
+{% block og_title %}{{ service.title }} en Baradero{% endblock %}
+{% block og_description %}{{ service.summary }}{% endblock %}
+
 {% block extra_head %}
   {% if not service.is_published %}<meta name="robots" content="noindex">{% endif %}
 {% endblock %}

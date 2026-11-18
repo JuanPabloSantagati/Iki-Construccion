@@ -118,4 +118,4 @@ Orden: A → B1 → C → D → B2 → E → F (B dividida; ver `docs/propuesta-
 - [x] **D** — Home, Estudio y Servicios (con proyectos relacionados)
 - [x] **B2** — Endurecer el admin: 2FA, django-axes, roles, RLS. **Obligatoria antes del primer deploy público**
 - [x] **E** — Contacto (HTMX, mails, WhatsApp)
-- [ ] **F** — SEO (sitemap, JSON-LD, Open Graph), zonas y pulido responsive
+- [x] **F** — SEO (sitemap, robots, security.txt, canonical, Open Graph, JSON-LD) y CSP estricta. Pendiente: landings de zona (solo con contenido propio por zona) y pulido responsive con fotos reales
