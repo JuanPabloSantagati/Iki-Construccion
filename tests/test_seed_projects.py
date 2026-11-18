@@ -56,7 +56,7 @@ def test_es_idempotente(debug_on):
 
 def test_no_pisa_lo_editado_en_el_admin(debug_on):
     seed()
-    service = Service.objects.get(slug="construccion")
+    service = Service.objects.get(slug="renders")
     service.title = "Obra llave en mano"
     service.is_published = True
     service.save()

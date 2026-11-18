@@ -10,6 +10,7 @@ admin.site.index_title = "Gestión del sitio"
 urlpatterns = [
     path(settings.ADMIN_URL, admin.site.urls),
     path("proyectos/", include("apps.projects.urls")),
+    path("servicios/", include("apps.services.urls")),
     path("", include("apps.core.urls")),
 ]
 

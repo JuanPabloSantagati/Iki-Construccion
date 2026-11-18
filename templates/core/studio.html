@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Estudio | IKI Diseño & Construcción{% endblock %}
+{% block meta_description %}IKI es un estudio de arquitectura y construcción de Baradero. Conocé quiénes somos y cómo trabajamos.{% endblock %}
+
+{% block content %}
+{# Textos provisorios: reemplazar por los definitivos del estudio. #}
+<section class="container-site pt-16 md:pt-28">
+  <p class="eyebrow text-ash">Estudio</p>
+  <h1 class="mt-6 max-w-4xl text-5xl leading-[1.05] md:text-7xl">Arquitectura simple, pensada para durar</h1>
+  <p class="mt-8 max-w-2xl text-lg text-stone">IKI es un estudio de diseño y construcción de Baradero. Acompañamos cada proyecto de punta a punta: desde la primera idea y los trámites hasta la dirección de la obra.</p>
+</section>
+
+<section class="container-site mt-24 grid gap-14 md:mt-36 md:grid-cols-12" aria-labelledby="enfoque">
+  <div class="md:col-span-4">
+    <p class="eyebrow text-ash">Enfoque</p>
+    <h2 id="enfoque" class="mt-4 text-4xl md:text-5xl">La elegancia de lo esencial</h2>
+  </div>
+  <dl class="grid gap-10 sm:grid-cols-2 md:col-span-8">
+    <div class="border-t border-line pt-6">
+      <dt class="font-display text-2xl">Lo necesario, bien resuelto</dt>
+      <dd class="mt-3 text-stone">Cada decisión responde a cómo se va a usar el espacio. Lo que no suma, no va.</dd>
+    </div>
+    <div class="border-t border-line pt-6">
+      <dt class="font-display text-2xl">Luz y materia</dt>
+      <dd class="mt-3 text-stone">Orientación, ventilación y materiales nobles: la base de una casa cómoda y eficiente.</dd>
+    </div>
+    <div class="border-t border-line pt-6">
+      <dt class="font-display text-2xl">Un solo equipo</dt>
+      <dd class="mt-3 text-stone">Proyecto, planos municipales, agrimensura y dirección de obra, coordinados por las mismas personas.</dd>
+    </div>
+    <div class="border-t border-line pt-6">
+      <dt class="font-display text-2xl">Cerca</dt>
+      <dd class="mt-3 text-stone">Trabajamos en Baradero y la zona: conocemos el lugar, sus normas y su gente.</dd>
+    </div>
+  </dl>
+</section>
+
+{% if team %}
+<section class="container-site mt-24 md:mt-36" aria-labelledby="equipo">
+  <p class="eyebrow text-ash">Equipo</p>
+  <h2 id="equipo" class="mt-4 text-4xl md:text-5xl">Quiénes somos</h2>
+  <ul class="mt-12 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+    {% for member in team %}
+      <li>
+        <div class="aspect-[4/5] overflow-hidden bg-mist">
+          {% if member.photo %}
+            <img src="{{ member.photo.url }}" alt="{{ member.name }}, {{ member.role }}" loading="lazy" decoding="async" class="h-full w-full object-cover grayscale">
+          {% endif %}
+        </div>
+        <p class="mt-4 font-display text-2xl">{{ member.name }}</p>
+        <p class="eyebrow mt-1 text-ash">{{ member.role }}</p>
+        {% if member.bio %}<p class="mt-3 text-stone">{{ member.bio }}</p>{% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+
+{% include "partials/cta_final.html" %}
+{% endblock %}
