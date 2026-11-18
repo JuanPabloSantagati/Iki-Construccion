@@ -115,5 +115,5 @@ Orden: A → B1 → C → D → B2 → E → F (B dividida; ver `docs/propuesta-
 - [x] **C** — Portfolio con filtros HTMX + ficha de proyecto con lightbox
 - [x] **D** — Home, Estudio y Servicios (con proyectos relacionados)
 - [ ] **B2** — Endurecer el admin: 2FA, django-axes, roles, RLS. **Obligatoria antes del primer deploy público**
-- [ ] **E** — Contacto (HTMX, mails, WhatsApp)
+- [x] **E** — Contacto (HTMX, mails, WhatsApp)
 - [ ] **F** — SEO (sitemap, JSON-LD, Open Graph), zonas y pulido responsive

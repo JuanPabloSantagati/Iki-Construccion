@@ -14,9 +14,11 @@
         <li><a href="{% url 'core:studio' %}" class="hover:text-paper">Estudio</a></li>
         <li><a href="{% url 'services:list' %}" class="hover:text-paper">Servicios</a></li>
         <li><a href="{% url 'projects:list' %}" class="hover:text-paper">Proyectos</a></li>
+        <li><a href="{% url 'contact:form' %}" class="hover:text-paper">Contacto</a></li>
       </ul>
     </nav>
 
+    {% if site.whatsapp or site.phone or site.email or site.instagram or site.facebook %}
     <div>
       <p class="eyebrow text-mist/60">Contacto</p>
       <ul class="mt-4 space-y-2 text-sm">
@@ -28,8 +30,12 @@
         {% if site.facebook %}<li><a href="{{ site.facebook }}" class="hover:text-paper" target="_blank" rel="noopener">Facebook</a></li>{% endif %}
       </ul>
     </div>
+    {% endif %}
   </div>
   <div class="container-site border-t border-mist/10 py-6">
-    <p class="text-xs text-mist/60">&copy; {% now "Y" %} IKI. La elegancia de lo esencial.</p>
+    <div class="flex flex-col gap-2 text-xs text-mist/60 sm:flex-row sm:justify-between">
+      <p>&copy; {% now "Y" %} IKI. La elegancia de lo esencial.</p>
+      <a href="{% url 'core:privacy' %}" class="hover:text-paper">Política de privacidad</a>
+    </div>
   </div>
 </footer>

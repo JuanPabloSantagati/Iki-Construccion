@@ -20,6 +20,8 @@ ALLOWED_HOSTS = ["testserver", "localhost"]
 PASSWORD_HASHERS = ["django.contrib.auth.hashers.MD5PasswordHasher"]
 
 EMAIL_BACKEND = "django.core.mail.backends.locmem.EmailBackend"
+CONTACT_NOTIFY_EMAIL = "avisos@iki.example"
+CONTACT_MIN_SECONDS = 0  # los tests envían el formulario al instante
 
 # Los tests nunca suben archivos a Supabase.
 MEDIA_ROOT = tempfile.mkdtemp(prefix="iki-test-media-")

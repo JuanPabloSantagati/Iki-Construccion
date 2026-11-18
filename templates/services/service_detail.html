@@ -44,7 +44,7 @@
     <h2 class="text-3xl md:text-4xl">¿Necesitás {{ service.title|lower }}?</h2>
     <p class="mt-4 max-w-xl text-stone">Contanos tu idea y te decimos cómo podemos ayudarte.</p>
     <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-      <a href="/contacto/" class="btn-solid">Hacer una consulta</a>
+      <a href="{% url 'contact:form' %}?servicio={{ service.slug }}" class="btn-solid">Hacer una consulta</a>
       {% whatsapp_url site.whatsapp "Hola IKI, quiero consultar por "|add:service.title|add:"." as wa %}
       {% if wa %}<a href="{{ wa }}" class="btn-outline" target="_blank" rel="noopener">WhatsApp</a>{% endif %}
       {% if site.phone %}<a href="{{ site.phone|tel_href }}" class="btn-outline">Llamar</a>{% endif %}

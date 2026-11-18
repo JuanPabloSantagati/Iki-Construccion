@@ -7,4 +7,5 @@ app_name = "core"
 urlpatterns = [
     path("", views.home, name="home"),
     path("estudio/", views.studio, name="studio"),
+    path("privacidad/", views.privacy, name="privacy"),
 ]

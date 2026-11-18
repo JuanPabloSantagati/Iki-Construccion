@@ -94,6 +94,13 @@
   .rich-text blockquote {
     @apply border-l border-ink pl-4 italic;
   }
+  /* Campos del formulario de contacto: línea inferior, sin cajas */
+  .form-iki input:not([type="checkbox"]):not([type="hidden"]),
+  .form-iki select,
+  .form-iki textarea {
+    @apply mt-2 block w-full rounded-none border-0 border-b border-line bg-transparent px-0 py-3
+      text-base text-ink placeholder:text-ash focus:border-ink focus:outline-none focus:ring-0;
+  }
   .btn-solid {
     @apply inline-flex items-center justify-center bg-ink px-5 py-3 text-xs font-medium
       uppercase tracking-[0.16em] text-paper transition-colors duration-300 hover:bg-graphite

@@ -11,6 +11,7 @@ urlpatterns = [
     path(settings.ADMIN_URL, admin.site.urls),
     path("proyectos/", include("apps.projects.urls")),
     path("servicios/", include("apps.services.urls")),
+    path("contacto/", include("apps.contact.urls")),
     path("", include("apps.core.urls")),
 ]
 

@@ -69,7 +69,7 @@
     <h2 class="text-3xl md:text-4xl">¿Te gustó este proyecto?</h2>
     <p class="mt-4 max-w-xl text-stone">Contanos qué tenés en mente y lo pensamos juntos.</p>
     <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-      <a href="/contacto/" class="btn-solid">Hacer una consulta</a>
+      <a href="{% url 'contact:form' %}?proyecto={{ project.slug }}" class="btn-solid">Hacer una consulta</a>
       {% whatsapp_url site.whatsapp whatsapp_text as wa %}
       {% if wa %}<a href="{{ wa }}" class="btn-outline" target="_blank" rel="noopener">WhatsApp</a>{% endif %}
       {% if site.phone %}<a href="{{ site.phone|tel_href }}" class="btn-outline">Llamar</a>{% endif %}

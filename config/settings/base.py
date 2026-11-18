@@ -182,6 +182,19 @@ STORAGES = {
 }
 
 
+# --- Email y contacto ------------------------------------------------------------
+# EMAIL_URL (SECRETA), ej: smtp+tls://cuenta@gmail.com:CONTRASEÑA_DE_APP@smtp.gmail.com:587
+# Vacía → los mails se imprimen en la consola (no se envían).
+vars().update(environ.Env.email_url_config(env("EMAIL_URL", default="") or "consolemail://"))
+EMAIL_TIMEOUT = 10
+DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", default="IKI <no-responder@localhost>")
+# A quién le llegan los avisos de consultas nuevas (PRIVADA: no va en el repo).
+CONTACT_NOTIFY_EMAIL = env("CONTACT_NOTIFY_EMAIL", default="")
+# Anti-spam del formulario: envíos por IP y por hora, y segundos mínimos para completarlo.
+CONTACT_RATE_LIMIT = env.int("CONTACT_RATE_LIMIT", default=5)
+CONTACT_MIN_SECONDS = 3
+
+
 # --- Seguridad (valores seguros en todos los entornos) -------------------------
 
 SECURE_CONTENT_TYPE_NOSNIFF = True

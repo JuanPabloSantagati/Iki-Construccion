@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Consulta enviada | IKI Diseño & Construcción{% endblock %}
+
+{% block extra_head %}<meta name="robots" content="noindex">{% endblock %}
+
+{% block content %}
+<section class="container-site max-w-3xl py-24 md:py-36">
+  {% include "contact/_success.html" %}
+  <a href="{% url 'projects:list' %}" class="btn-outline mt-10">Ver proyectos</a>
+</section>
+{% endblock %}

@@ -96,9 +96,9 @@ Todas están documentadas en [`.env.example`](.env.example) con su clasificació
 
 | Tipo | Ejemplos | Dónde pueden estar |
 |---|---|---|
-| **PÚBLICA** | `ALLOWED_HOSTS`, `SUPABASE_URL`, `SUPABASE_STORAGE_BUCKET`, número de WhatsApp, site key de Turnstile (etapa E) | Repo de ejemplo, HTML, navegador |
-| **PRIVADA** | `ADMIN_URL` | Solo `.env` / panel del hosting (no es credencial, pero no se publica) |
-| **SECRETA** | `SECRET_KEY`, `DATABASE_URL`, `SUPABASE_S3_ACCESS_KEY_ID`, `SUPABASE_S3_SECRET_ACCESS_KEY`, SMTP y secret key de Turnstile (etapa E) | **Solo** `.env` local o variables del hosting. Nunca en templates, JS ni repo |
+| **PÚBLICA** | `ALLOWED_HOSTS`, `SUPABASE_URL`, `SUPABASE_STORAGE_BUCKET`, `DEFAULT_FROM_EMAIL`, `CONTACT_RATE_LIMIT`, número de WhatsApp | Repo de ejemplo, HTML, navegador |
+| **PRIVADA** | `ADMIN_URL`, `CONTACT_NOTIFY_EMAIL` | Solo `.env` / panel del hosting (no es credencial, pero no se publica) |
+| **SECRETA** | `SECRET_KEY`, `DATABASE_URL`, `SUPABASE_S3_ACCESS_KEY_ID`, `SUPABASE_S3_SECRET_ACCESS_KEY`, `EMAIL_URL` (SMTP) | **Solo** `.env` local o variables del hosting. Nunca en templates, JS ni repo |
 
 El navegador nunca recibe credenciales de Supabase: subidas y consultas pasan por Django.
 Las imágenes públicas se leen desde la URL pública del bucket (solo lectura, sin claves).
