@@ -24,13 +24,16 @@ if os.environ.get("DJANGO_READ_DOT_ENV", "1") == "1" and (BASE_DIR / ".env").exi
 # --- Aplicaciones --------------------------------------------------------------
 
 INSTALLED_APPS = [
-    "django.contrib.admin",
+    "apps.core.admin_config.IkiAdminConfig",  # admin con 2FA obligatorio (core/admin_site.py)
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "storages",
+    "django_otp",
+    "django_otp.plugins.otp_totp",
+    "axes",
     "apps.core",
     "apps.projects",
     "apps.services",
@@ -45,8 +48,11 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django_otp.middleware.OTPMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    # Siempre al final: bloquea los intentos de login después del límite.
+    "axes.middleware.AxesMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -99,6 +105,28 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
+
+AUTHENTICATION_BACKENDS = [
+    "axes.backends.AxesStandaloneBackend",  # primero: corta el login si está bloqueado
+    "django.contrib.auth.backends.ModelBackend",
+]
+
+# 2FA (TOTP) obligatorio para entrar al admin. Solo se puede apagar en desarrollo/tests;
+# en producción el arranque falla si ADMIN_REQUIRE_2FA=False.
+ADMIN_REQUIRE_2FA = env.bool("ADMIN_REQUIRE_2FA", default=True)
+OTP_TOTP_ISSUER = "IKI Web"
+
+# django-axes: 5 intentos fallidos por usuario + IP → bloqueo de 1 hora.
+AXES_FAILURE_LIMIT = 5
+AXES_COOLOFF_TIME = 1  # horas
+AXES_LOCKOUT_PARAMETERS = [["username", "ip_address"]]
+AXES_RESET_ON_SUCCESS = True
+AXES_DISABLE_ACCESS_LOG = True  # no guardar un registro de cada login exitoso (datos mínimos)
+AXES_LOCKOUT_TEMPLATE = "axes_locked.html"
+# Detrás de un proxy (hosting) hay que configurar AXES_CLIENT_IP_CALLABLE para tomar la IP real.
+
+# Sesión del admin: 12 horas.
+SESSION_COOKIE_AGE = 12 * 60 * 60
 
 # Ruta del admin: nunca /admin/. Debe terminar en "/".
 ADMIN_URL = env("ADMIN_URL", default="gestion-iki/")

@@ -39,9 +39,10 @@ pre-commit install
 # 5. CSS (descarga el CLI de Tailwind la primera vez y verifica su checksum)
 ./scripts/build_css.sh               # o --watch mientras desarrollás
 
-# 6. Base de datos y usuario admin
-python manage.py migrate
+# 6. Base de datos y usuario admin (con 2FA obligatorio)
+python manage.py migrate          # también activa RLS en Supabase y crea los grupos Editor/Gestión
 python manage.py createsuperuser
+python manage.py setup_2fa <usuario>   # muestra un QR: escanealo con Google Authenticator o similar
 
 # 7. Datos de prueba (disponible desde la etapa B)
 # python manage.py seed_projects
@@ -53,6 +54,18 @@ python manage.py runserver
 - Sitio: <http://127.0.0.1:8000/>
 - Admin: `http://127.0.0.1:8000/<ADMIN_URL>` (en tu `.env`; por defecto `gestion-iki/`).
   No existe en `/admin/` a propósito.
+
+## Admin: 2FA y roles
+
+- Entrar al admin pide usuario, contraseña **y** el código de 6 dígitos de la app autenticadora.
+  El QR se genera con `python manage.py setup_2fa <usuario>`, desde una terminal propia (el QR es
+  secreto: no lo pegues en chats ni le saques captura). Volver a correrlo reemplaza el anterior.
+- Tras 5 intentos fallidos para un usuario desde una IP, el login se bloquea 1 hora
+  (django-axes). Para desbloquear antes: `python manage.py axes_reset`.
+- Grupos (se crean solos con `migrate`):
+  - **Editor**: proyectos, imágenes, servicios, equipo y zonas. No ve consultas ni usuarios.
+  - **Gestión**: lo mismo + consultas y configuración del sitio.
+  - Superusuario: solo los socios.
 
 ## Comandos habituales
 

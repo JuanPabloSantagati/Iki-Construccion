@@ -19,6 +19,9 @@ if not SECRET_KEY:
 if len(SECRET_KEY) < 50 or SECRET_KEY.startswith(("django-insecure", "dev-insecure", "test-")):
     raise ImproperlyConfigured("SECRET_KEY de producción inválida: generá una nueva y larga.")
 
+if not env.bool("ADMIN_REQUIRE_2FA", default=True):
+    raise ImproperlyConfigured("ADMIN_REQUIRE_2FA=False no está permitido en producción.")
+
 # Obligatoria en prod: el default de base.py (público en el repo) no debe llegar a producción.
 if not env("ADMIN_URL", default=""):
     raise ImproperlyConfigured("Falta la variable de entorno ADMIN_URL.")

@@ -86,6 +86,8 @@ Docs: `docs/plan.md` (plan), `docs/supabase.md` (DB, RLS, Storage), `docs/github
   cookies `Secure` / `HttpOnly` / `SameSite`, `nosniff`, `X-Frame-Options: DENY`, Referrer-Policy.
 - `python manage.py check --deploy` sin warnings (corre en CI).
 - El admin no está en `/admin/`: su ruta sale de la variable `ADMIN_URL`.
+- Admin con 2FA obligatorio (django-otp, `setup_2fa`), bloqueo por intentos (django-axes) y
+  grupos Editor/Gestión. RLS en Supabase se aplica solo en cada `migrate`.
 
 ## Flujo de Git
 
@@ -114,6 +116,6 @@ Orden: A → B1 → C → D → B2 → E → F (B dividida; ver `docs/propuesta-
 - [x] **B1** — Modelos + admin (inlines, subida múltiple) + Pillow + `seed_projects`
 - [x] **C** — Portfolio con filtros HTMX + ficha de proyecto con lightbox
 - [x] **D** — Home, Estudio y Servicios (con proyectos relacionados)
-- [ ] **B2** — Endurecer el admin: 2FA, django-axes, roles, RLS. **Obligatoria antes del primer deploy público**
+- [x] **B2** — Endurecer el admin: 2FA, django-axes, roles, RLS. **Obligatoria antes del primer deploy público**
 - [x] **E** — Contacto (HTMX, mails, WhatsApp)
 - [ ] **F** — SEO (sitemap, JSON-LD, Open Graph), zonas y pulido responsive

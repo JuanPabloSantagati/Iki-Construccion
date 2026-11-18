@@ -7,7 +7,9 @@
 asgiref==3.13.0 \
     --hash=sha256:034cc8cbf72d00553b4be256703ac545120b4e50af13b49dec99da899aeeecb4 \
     --hash=sha256:f9596a2434512686473d50f96ff6207fbba49ae1a785dfac614df4aeb085674d
-    # via django
+    # via
+    #   django
+    #   django-axes
 boto3==1.43.125 \
     --hash=sha256:101fe3ee99664e671efb9af65c8e98ec0bceddf6de922ea89685da4adc8c6907 \
     --hash=sha256:5a635a0fbbd51f319e465b809cf043668705defbb9dddaf26ae66747f70b2a49
@@ -18,6 +20,10 @@ botocore==1.43.125 \
     # via
     #   boto3
     #   s3transfer
+colorama==0.4.6 \
+    --hash=sha256:08695f5cb7ed6e0531a20572697297273c47b8cae5a63ffc6d6ed5c201be6e44 \
+    --hash=sha256:4f1d9991f5acc0ca119f9d443620b77f9d6b33703e51011c16baf57afb285fc6
+    # via qrcode
 dj-database-url==3.1.2 \
     --hash=sha256:544e015fee3efa5127a1eb1cca465f4ace578265b3671fe61d0ed7dbafb5ec8a \
     --hash=sha256:63c20e4bbaa51690dfd4c8d189521f6bf6bc9da9fcdb23d95d2ee8ee87f9ec62
@@ -28,10 +34,20 @@ django==5.2.19 \
     # via
     #   -r requirements/base.in
     #   dj-database-url
+    #   django-axes
+    #   django-otp
     #   django-storages
+django-axes==9.0.0 \
+    --hash=sha256:863aef4563673c1e77bb3d21be1ba1d2612b0cf9d5365c27c9af9ae1c614c3c0 \
+    --hash=sha256:fb7b0322a09d8f090d5a980690cb5468dc1903d3d950f1968c4e067348d58059
+    # via -r requirements/base.in
 django-environ==0.14.0 \
     --hash=sha256:8dbe8a57f0a540ab8abd6f54f230de5e99e3a2c9d797cb9caecb037bca3d47d8 \
     --hash=sha256:b6c48d93b9d2ff8a3ea14099e90c35aa4f101c1b4d5f262dfee0d27b06742ed7
+    # via -r requirements/base.in
+django-otp==1.7.5 \
+    --hash=sha256:475d4111e07d61616996f098d08d29884da6397273a11f53c1b8e8c75d27e1dc \
+    --hash=sha256:7f554d21dcd035550c3b8e3f154b1f422fee71fdc75c8a3bf96e42a2ea6dafcc
     # via -r requirements/base.in
 django-storages==1.14.6 \
     --hash=sha256:11b7b6200e1cb5ffcd9962bd3673a39c7d6a6109e8096f0e03d46fab3d3aabd9 \
@@ -237,6 +253,10 @@ python-dateutil==2.9.0.post0 \
     --hash=sha256:37dd54208da7e1cd875388217d5e00ebd4179249f90fb72437e91a35459a0ad3 \
     --hash=sha256:a8b2bc7bffae282281c8140a97d3aa9c14da0b136dfe83f850eea9a5f7470427
     # via botocore
+qrcode==8.2 \
+    --hash=sha256:16e64e0716c14960108e85d853062c9e8bba5ca8252c0b4d0231b9df4060ff4f \
+    --hash=sha256:35c3f2a4172b33136ab9f6b3ef1c00260dd2f66f858f24d88418a015f446506c
+    # via -r requirements/base.in
 s3transfer==0.19.3 \
     --hash=sha256:24eb7535804306355e31c952a90022bf5b2f9d760f9a11062c7493a217c08553 \
     --hash=sha256:8326acc3d056d7f7b8a37110c7d2aea41f67e83f6ae79cd3b5fbcca34c726406
