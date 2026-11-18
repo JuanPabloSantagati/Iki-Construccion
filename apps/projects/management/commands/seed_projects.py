@@ -83,6 +83,7 @@ SERVICES = [
 ]
 
 ADDRESS = "Baradero, Buenos Aires"
+INSTAGRAM = "https://www.instagram.com/ikiproyectos/"
 
 
 class Command(BaseCommand):
@@ -111,6 +112,10 @@ class Command(BaseCommand):
                 site.address = ADDRESS
                 site.save()
                 created["dirección del sitio"] = 1
+            if not site.instagram:
+                site.instagram = INSTAGRAM
+                site.save()
+                created["Instagram del sitio"] = 1
         news = [f"{n} {label}" for label, n in created.items() if n]
         self.stdout.write("Creados: " + ", ".join(news) + "." if news else "Nada nuevo para crear.")
 

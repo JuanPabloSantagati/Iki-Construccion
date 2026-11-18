@@ -25,6 +25,9 @@
       {% if site.email %}
         <div><p class="eyebrow text-ash">Email</p><a href="mailto:{{ site.email }}" class="mt-1 block hover:underline">{{ site.email }}</a></div>
       {% endif %}
+      {% if site.instagram %}
+        <div><p class="eyebrow text-ash">Instagram</p><a href="{{ site.instagram }}" class="mt-1 inline-flex items-center gap-2 hover:underline" target="_blank" rel="noopener">{% include "partials/icon_instagram.html" with class="size-4" %} Seguinos</a></div>
+      {% endif %}
       {% if site.address %}
         <div><p class="eyebrow text-ash">Estudio</p><p class="mt-1">{{ site.address }}</p></div>
       {% endif %}

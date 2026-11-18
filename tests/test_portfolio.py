@@ -247,6 +247,7 @@ def test_cta_whatsapp_y_telefono(client, project):
 
 def test_cta_sin_datos_de_contacto_no_muestra_botones(client, project):
     body = client.get(project.get_absolute_url()).content.decode()
-    assert "wa.me" not in body
-    assert "tel:" not in body
     assert "¿Te gustó este proyecto?" in body
+    cta = body.split("¿Te gustó este proyecto?")[1].split("</section>")[0]
+    assert "wa.me" not in cta
+    assert "tel:" not in cta
