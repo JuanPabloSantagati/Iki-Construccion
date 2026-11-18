@@ -2,7 +2,7 @@
 
 {% block content %}
 {# 1. Hero: lema + obra destacada #}
-<section class="container-site pt-16 pb-12 md:pt-28 md:pb-16">
+<section class="container-site pt-10 pb-12 md:pt-16 md:pb-16">
   <p class="eyebrow text-ash">Diseño &amp; Construcción · Baradero</p>
   <h1 class="mt-6 max-w-4xl text-5xl leading-[1.05] md:text-8xl">La elegancia de lo esencial</h1>
   <p class="mt-8 max-w-xl text-stone">Proyectamos, documentamos y dirigimos obras con una idea simple: que cada espacio tenga solo lo que necesita, y que eso sea suficiente.</p>
@@ -14,15 +14,17 @@
 
 {% if hero %}
   {% with cover=hero.cover %}
-  <a href="{{ hero.get_absolute_url }}" class="group block">
+  <a href="{{ hero.get_absolute_url }}" class="container-site group block">
     {% if cover %}
-      <img src="{{ cover.large.url }}"
-           srcset="{{ cover.medium.url }} 1280w, {{ cover.large.url }} 2000w"
-           sizes="100vw" alt="{{ cover.alt }}" fetchpriority="high"
-           class="h-[60svh] w-full object-cover md:h-[85svh]">
+      <div class="overflow-hidden bg-mist">
+        <img src="{{ cover.large.url }}"
+             srcset="{{ cover.medium.url }} 1280w, {{ cover.large.url }} 2000w"
+             sizes="(min-width: 1400px) 1300px, 100vw" alt="{{ cover.alt }}" fetchpriority="high"
+             class="aspect-[4/3] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02] md:aspect-[16/9] lg:max-h-[70svh]">
+      </div>
     {% endif %}
-    <div class="container-site flex flex-col gap-1 pt-5 md:flex-row md:items-baseline md:justify-between">
-      <p class="font-display text-2xl md:text-3xl">{{ hero.title }}</p>
+    <div class="flex flex-col gap-1 pt-5 md:flex-row md:items-baseline md:justify-between">
+      <p class="font-display text-2xl font-semibold md:text-3xl">{{ hero.title }}</p>
       <p class="eyebrow text-ash group-hover:text-ink">{{ hero.meta_items|join:" · " }} &rarr;</p>
     </div>
   </a>
@@ -31,7 +33,7 @@
 
 {# 2. Servicios resumidos #}
 {% if services %}
-<section class="container-site mt-24 md:mt-36" aria-labelledby="servicios">
+<section class="container-site mt-16 md:mt-24" aria-labelledby="servicios">
   <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
     <div>
       <p class="eyebrow text-ash">Servicios</p>
@@ -44,7 +46,7 @@
       <li class="border-b border-line">
         <a href="{{ service.get_absolute_url }}" class="group grid gap-2 py-6 md:grid-cols-12 md:items-baseline md:gap-8 md:py-8">
           <span class="eyebrow text-ash md:col-span-1">{{ forloop.counter|stringformat:"02d" }}</span>
-          <span class="font-display text-3xl md:col-span-5 md:text-4xl">{{ service.title }}</span>
+          <span class="font-display text-3xl font-semibold md:col-span-5 md:text-4xl">{{ service.title }}</span>
           <span class="text-stone md:col-span-5">{{ service.summary }}</span>
           <span class="hidden text-right text-xl transition-transform group-hover:translate-x-1 md:col-span-1 md:block" aria-hidden="true">&rarr;</span>
         </a>
@@ -56,7 +58,7 @@
 
 {# 3. Últimos proyectos #}
 {% if recent %}
-<section class="container-site mt-24 md:mt-36" aria-labelledby="ultimos">
+<section class="container-site mt-16 md:mt-24" aria-labelledby="ultimos">
   <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
     <div>
       <p class="eyebrow text-ash">Portfolio</p>

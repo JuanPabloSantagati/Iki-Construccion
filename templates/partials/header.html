@@ -1,28 +1,28 @@
-<header class="border-b border-line">
-  <div class="container-site flex items-center justify-between gap-6 py-5 md:py-6">
-    <a href="{% url 'core:home' %}" class="font-display text-2xl tracking-[0.3em]" aria-label="IKI — Inicio">IKI</a>
+<header class="sticky top-0 z-40 bg-ink text-paper">
+  <div class="container-site flex items-center justify-between gap-6 py-4 md:py-5">
+    <a href="{% url 'core:home' %}" class="text-2xl font-extrabold tracking-[0.35em]" aria-label="IKI — Inicio">IKI</a>
 
     <nav class="hidden items-center gap-8 lg:flex" aria-label="Principal">
-      <a href="{% url 'core:studio' %}" class="eyebrow text-stone hover:text-ink">Estudio</a>
-      <a href="{% url 'services:list' %}" class="eyebrow text-stone hover:text-ink">Servicios</a>
-      <a href="{% url 'projects:list' %}" class="eyebrow text-stone hover:text-ink">Proyectos</a>
+      <a href="{% url 'core:studio' %}" class="eyebrow font-semibold text-paper/75 hover:text-paper">Estudio</a>
+      <a href="{% url 'services:list' %}" class="eyebrow font-semibold text-paper/75 hover:text-paper">Servicios</a>
+      <a href="{% url 'projects:list' %}" class="eyebrow font-semibold text-paper/75 hover:text-paper">Proyectos</a>
       {% if site.instagram %}
-        <a href="{{ site.instagram }}" class="text-stone hover:text-ink" target="_blank" rel="noopener" aria-label="Instagram de IKI">{% include "partials/icon_instagram.html" %}</a>
+        <a href="{{ site.instagram }}" class="text-paper/75 hover:text-paper" target="_blank" rel="noopener" aria-label="Instagram de IKI">{% include "partials/icon_instagram.html" %}</a>
       {% endif %}
-      <a href="{% url 'contact:form' %}" class="btn-outline">Iniciar proyecto</a>
+      <a href="{% url 'contact:form' %}" class="btn-outline border-paper font-semibold hover:bg-paper hover:text-ink">Iniciar proyecto</a>
     </nav>
 
     {# Menú mobile sin JavaScript #}
     <details class="group lg:hidden">
-      <summary class="eyebrow cursor-pointer list-none">Menú</summary>
-      <nav class="absolute inset-x-0 z-50 mt-5 flex flex-col gap-6 border-b border-line bg-paper px-6 py-8" aria-label="Principal (mobile)">
-        <a href="{% url 'core:studio' %}" class="eyebrow">Estudio</a>
-        <a href="{% url 'services:list' %}" class="eyebrow">Servicios</a>
-        <a href="{% url 'projects:list' %}" class="eyebrow">Proyectos</a>
+      <summary class="eyebrow cursor-pointer list-none font-semibold">Menú</summary>
+      <nav class="absolute inset-x-0 z-50 mt-4 flex flex-col gap-6 border-t border-paper/10 bg-ink px-6 py-8" aria-label="Principal (mobile)">
+        <a href="{% url 'core:studio' %}" class="eyebrow font-semibold">Estudio</a>
+        <a href="{% url 'services:list' %}" class="eyebrow font-semibold">Servicios</a>
+        <a href="{% url 'projects:list' %}" class="eyebrow font-semibold">Proyectos</a>
         {% if site.instagram %}
-          <a href="{{ site.instagram }}" class="eyebrow inline-flex items-center gap-2" target="_blank" rel="noopener">{% include "partials/icon_instagram.html" with class="size-4" %} Instagram</a>
+          <a href="{{ site.instagram }}" class="eyebrow inline-flex items-center gap-2 font-semibold" target="_blank" rel="noopener">{% include "partials/icon_instagram.html" with class="size-4" %} Instagram</a>
         {% endif %}
-        <a href="{% url 'contact:form' %}" class="btn-solid">Iniciar proyecto</a>
+        <a href="{% url 'contact:form' %}" class="btn-outline border-paper font-semibold hover:bg-paper hover:text-ink">Iniciar proyecto</a>
       </nav>
     </details>
   </div>
