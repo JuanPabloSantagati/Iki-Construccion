@@ -123,7 +123,8 @@ AXES_LOCKOUT_PARAMETERS = [["username", "ip_address"]]
 AXES_RESET_ON_SUCCESS = True
 AXES_DISABLE_ACCESS_LOG = True  # no guardar un registro de cada login exitoso (datos mínimos)
 AXES_LOCKOUT_TEMPLATE = "axes_locked.html"
-# Detrás de un proxy (hosting) hay que configurar AXES_CLIENT_IP_CALLABLE para tomar la IP real.
+# IP real detrás de un proxy: ver TRUSTED_PROXY_COUNT (apps/core/clientip.py).
+AXES_CLIENT_IP_CALLABLE = "apps.core.clientip.get_client_ip"
 
 # Sesión del admin: 12 horas.
 SESSION_COOKIE_AGE = 12 * 60 * 60
@@ -221,6 +222,9 @@ CONTACT_NOTIFY_EMAIL = env("CONTACT_NOTIFY_EMAIL", default="")
 # Anti-spam del formulario: envíos por IP y por hora, y segundos mínimos para completarlo.
 CONTACT_RATE_LIMIT = env.int("CONTACT_RATE_LIMIT", default=5)
 CONTACT_MIN_SECONDS = 3
+# Cantidad de proxies confiables delante de Django (0 = ninguno). Lo usan el límite de envíos
+# del formulario y el bloqueo de login: sin esto ven la IP del proxy, no la del visitante.
+TRUSTED_PROXY_COUNT = env.int("TRUSTED_PROXY_COUNT", default=0)
 
 
 # --- Seguridad (valores seguros en todos los entornos) -------------------------

@@ -4,6 +4,9 @@ El arranque FALLA (ImproperlyConfigured) si falta una variable obligatoria,
 si DEBUG=True o si la configuración es insegura. Mejor no arrancar que arrancar mal.
 """
 
+import tempfile
+from pathlib import Path
+
 from django.core.exceptions import ImproperlyConfigured
 
 from .base import *  # noqa: F403
@@ -28,6 +31,11 @@ if not env("ADMIN_URL", default=""):
 if ADMIN_URL.strip("/").lower() in {"admin", "administrador", "login", "wp-admin"}:
     raise ImproperlyConfigured("ADMIN_URL es demasiado predecible.")
 
+# Sin esto los mails de consultas nuevas irían a la consola y nadie se enteraría.
+for _name in ("EMAIL_URL", "CONTACT_NOTIFY_EMAIL"):
+    if not env(_name, default=""):
+        raise ImproperlyConfigured(f"Falta la variable de entorno {_name}.")
+
 if not env("DATABASE_URL", default=""):
     raise ImproperlyConfigured("DATABASE_URL es obligatoria en producción.")
 DATABASES["default"].setdefault("OPTIONS", {})["sslmode"] = "require"
@@ -38,6 +46,17 @@ if not ALLOWED_HOSTS or "*" in ALLOWED_HOSTS:
     raise ImproperlyConfigured("ALLOWED_HOSTS debe listar los dominios reales (sin '*').")
 if not CSRF_TRUSTED_ORIGINS:
     raise ImproperlyConfigured("Falta la variable de entorno CSRF_TRUSTED_ORIGINS.")
+
+
+# --- Caché ---------------------------------------------------------------------
+# El límite de envíos del formulario cuenta en la caché: con la de memoria (por proceso) cada
+# worker de gunicorn llevaría su propia cuenta. En disco la comparten todos los de un servidor.
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
+        "LOCATION": env("CACHE_DIR", default=str(Path(tempfile.gettempdir()) / "iki-cache")),
+    }
+}
 
 
 # --- HTTPS ---------------------------------------------------------------------

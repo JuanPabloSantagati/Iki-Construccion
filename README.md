@@ -86,6 +86,7 @@ DJANGO_SETTINGS_MODULE=config.settings.prod DJANGO_READ_DOT_ENV=0 \
 SECRET_KEY="$(python -c 'import secrets; print(secrets.token_urlsafe(64))')" \
 ALLOWED_HOSTS=iki.example CSRF_TRUSTED_ORIGINS=https://iki.example \
 ADMIN_URL=panel-local/ DATABASE_URL=postgres://iki@localhost/iki \
+EMAIL_URL=smtp+tls://u:p@smtp.example:587 CONTACT_NOTIFY_EMAIL=avisos@iki.example \
 python manage.py check --deploy --fail-level WARNING
 ```
 
