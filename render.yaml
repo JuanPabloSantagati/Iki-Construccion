@@ -9,7 +9,8 @@ services:
     branch: main
     autoDeploy: true
     buildCommand: ./scripts/render_build.sh
-    preDeployCommand: python manage.py migrate --noinput
+    # Migra con el rol dueño del esquema (iki_migrator); la app corre con iki_app (DATABASE_URL).
+    preDeployCommand: DATABASE_URL="$MIGRATE_DATABASE_URL" python manage.py migrate --noinput
     startCommand: gunicorn config.wsgi:application --bind 0.0.0.0:$PORT --workers 2 --access-logfile -
     envVars:
       - key: PYTHON_VERSION
@@ -45,7 +46,9 @@ services:
       # --- Secretas: SOLO en el panel de Render, nunca en el repo ---
       - key: SECRET_KEY
         generateValue: true # Render genera una de 64+ caracteres
-      - key: DATABASE_URL
+      - key: DATABASE_URL # rol iki_app
+        sync: false
+      - key: MIGRATE_DATABASE_URL # rol iki_migrator, solo se usa al migrar
         sync: false
       - key: SUPABASE_S3_ACCESS_KEY_ID
         sync: false
