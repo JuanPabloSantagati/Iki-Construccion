@@ -1,0 +1,55 @@
+# Blueprint de Render (propuesta, pendiente de aprobación de ambos socios).
+# Acá NO va ningún valor secreto: las variables `sync: false` se cargan a mano en el panel.
+services:
+  - type: web
+    name: iki
+    runtime: python
+    plan: starter # el plan gratis se duerme; Starter no
+    region: virginia
+    branch: main
+    autoDeploy: true
+    buildCommand: ./scripts/render_build.sh
+    preDeployCommand: python manage.py migrate --noinput
+    startCommand: gunicorn config.wsgi:application --bind 0.0.0.0:$PORT --workers 2 --access-logfile -
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.8
+      - key: DJANGO_SETTINGS_MODULE
+        value: config.settings.prod
+      - key: DEBUG
+        value: "False"
+      - key: TRUST_PROXY_SSL_HEADER
+        value: "True"
+      - key: TRUSTED_PROXY_COUNT
+        value: "1"
+      - key: MEDIA_STORAGE
+        value: supabase
+      - key: SUPABASE_STORAGE_BUCKET
+        value: iki-public
+      # --- Públicas: completar en el panel ---
+      - key: ALLOWED_HOSTS
+        sync: false
+      - key: CSRF_TRUSTED_ORIGINS
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_STORAGE_REGION
+        sync: false
+      - key: DEFAULT_FROM_EMAIL
+        sync: false
+      # --- Privadas ---
+      - key: ADMIN_URL
+        sync: false
+      - key: CONTACT_NOTIFY_EMAIL
+        sync: false
+      # --- Secretas: SOLO en el panel de Render, nunca en el repo ---
+      - key: SECRET_KEY
+        generateValue: true # Render genera una de 64+ caracteres
+      - key: DATABASE_URL
+        sync: false
+      - key: SUPABASE_S3_ACCESS_KEY_ID
+        sync: false
+      - key: SUPABASE_S3_SECRET_ACCESS_KEY
+        sync: false
+      - key: EMAIL_URL
+        sync: false
