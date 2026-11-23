@@ -17,9 +17,9 @@
 {% endif %}
 
 <article class="container-site pt-10 md:pt-16">
-  <div class="intro">
+  <div class="intro drift-soft">
   <a href="{% url 'services:list' %}" class="eyebrow link-line text-ash transition-colors hover:text-ink">&larr; Todos los servicios</a>
-  <h1 class="mt-6 max-w-4xl text-5xl leading-[1.05] md:text-7xl">{{ service.title }}</h1>
+  <h1 class="title-open mt-6 max-w-4xl text-5xl leading-[1.05] md:text-7xl">{{ service.title }}</h1>
   {% if service.summary %}<p class="mt-8 max-w-2xl font-display text-2xl leading-snug md:text-3xl">{{ service.summary }}</p>{% endif %}
   {% if service.description %}
     {# Texto plano: se escapa y los saltos de línea pasan a párrafos (regla 6). #}

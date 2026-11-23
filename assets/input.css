@@ -186,6 +186,12 @@
     opacity: 0;
   }
 }
+@keyframes iki-drift-soft {
+  to {
+    translate: 0 12%;
+    opacity: 0;
+  }
+}
 @keyframes iki-title-open {
   to {
     letter-spacing: 0.04em;
@@ -273,6 +279,12 @@
     animation: iki-drift linear both;
     animation-timeline: view();
     animation-range: exit 0% exit 100%;
+  }
+  /* Páginas internas: debajo viene texto, así que se queda menos atrás y se va antes */
+  .drift-soft {
+    animation: iki-drift-soft linear both;
+    animation-timeline: view();
+    animation-range: exit 0% exit 55%;
   }
   .intro > .title-open {
     animation:

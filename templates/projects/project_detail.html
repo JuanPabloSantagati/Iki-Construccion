@@ -34,9 +34,9 @@
 
 <article class="container-site">
   {# 2. Volver + título + metadatos #}
-  <header class="intro pt-10 md:pt-16">
+  <header class="intro drift-soft pt-10 md:pt-16">
     <a href="{% url 'projects:list' %}" class="eyebrow link-line text-ash transition-colors hover:text-ink">&larr; Todos los proyectos</a>
-    <h1 class="mt-6 text-5xl leading-[1.05] md:text-7xl">{{ project.title }}</h1>
+    <h1 class="title-open mt-6 text-5xl leading-[1.05] md:text-7xl">{{ project.title }}</h1>
     <p class="mt-5 text-sm uppercase tracking-[0.12em] text-stone">{{ project.meta_items|join:" · " }}</p>
   </header>
 
