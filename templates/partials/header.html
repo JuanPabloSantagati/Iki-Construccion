@@ -1,24 +1,24 @@
 {% load static %}
-<header class="sticky top-0 z-40 bg-ink text-paper">
-  <div class="container-site flex items-center justify-between gap-6 py-4 md:py-5">
+<header class="sticky top-0 z-40 bg-ink text-paper [view-transition-name:site-header]">
+  <div class="header-compact container-site flex items-center justify-between gap-6 py-4 md:py-5">
     <a href="{% url 'core:home' %}" class="shrink-0" aria-label="IKI — Inicio">
       <img src="{% static 'img/logo-iki-white.png' %}" alt="IKI" width="292" height="160" class="h-8 w-auto md:h-9">
     </a>
 
     <nav class="hidden items-center gap-8 lg:flex" aria-label="Principal">
-      <a href="{% url 'core:studio' %}" class="eyebrow font-semibold text-paper/75 hover:text-paper">Estudio</a>
-      <a href="{% url 'services:list' %}" class="eyebrow font-semibold text-paper/75 hover:text-paper">Servicios</a>
-      <a href="{% url 'projects:list' %}" class="eyebrow font-semibold text-paper/75 hover:text-paper">Proyectos</a>
+      <a href="{% url 'core:studio' %}" class="eyebrow link-line font-semibold text-paper/75 transition-colors hover:text-paper">Estudio</a>
+      <a href="{% url 'services:list' %}" class="eyebrow link-line font-semibold text-paper/75 transition-colors hover:text-paper">Servicios</a>
+      <a href="{% url 'projects:list' %}" class="eyebrow link-line font-semibold text-paper/75 transition-colors hover:text-paper">Proyectos</a>
       {% if site.instagram %}
-        <a href="{{ site.instagram }}" class="text-paper/75 hover:text-paper" target="_blank" rel="noopener" aria-label="Instagram de IKI">{% include "partials/icon_instagram.html" %}</a>
+        <a href="{{ site.instagram }}" class="text-paper/75 transition-colors hover:text-paper" target="_blank" rel="noopener" aria-label="Instagram de IKI">{% include "partials/icon_instagram.html" %}</a>
       {% endif %}
       <a href="{% url 'contact:form' %}" class="btn-outline border-paper font-semibold hover:bg-paper hover:text-ink">Iniciar proyecto</a>
     </nav>
 
     {# Menú mobile sin JavaScript #}
     <details class="group lg:hidden">
-      <summary class="eyebrow cursor-pointer list-none font-semibold">Menú</summary>
-      <nav class="absolute inset-x-0 z-50 mt-4 flex flex-col gap-6 border-t border-paper/10 bg-ink px-6 py-8" aria-label="Principal (mobile)">
+      <summary class="eyebrow cursor-pointer list-none p-2 font-semibold -m-2"><span class="group-open:hidden">Menú</span><span class="hidden group-open:inline">Cerrar</span></summary>
+      <nav class="menu-panel absolute inset-x-0 z-50 mt-4 flex flex-col gap-6 border-t border-paper/10 bg-ink px-6 py-8" aria-label="Principal (mobile)">
         <a href="{% url 'core:studio' %}" class="eyebrow font-semibold">Estudio</a>
         <a href="{% url 'services:list' %}" class="eyebrow font-semibold">Servicios</a>
         <a href="{% url 'projects:list' %}" class="eyebrow font-semibold">Proyectos</a>

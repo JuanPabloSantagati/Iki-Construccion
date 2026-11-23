@@ -121,3 +121,109 @@
       focus-visible:outline-2 focus-visible:outline-offset-2;
   }
 }
+
+/* --- Movimiento ---------------------------------------------------------------
+   Solo CSS (sin JS, compatible con la CSP). Sutil: entradas cortas, nada en loop.
+   Si el navegador no soporta algo, el contenido se ve igual, sin animación.
+   Con "reducir movimiento" activado en el sistema, se apaga todo. */
+
+/* Transición suave entre páginas (navegadores con View Transitions) */
+@view-transition {
+  navigation: auto;
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.35s;
+}
+
+@keyframes iki-fade-up {
+  from {
+    opacity: 0;
+    translate: 0 1.5rem;
+  }
+}
+@keyframes iki-fade-down {
+  from {
+    opacity: 0;
+    translate: 0 -0.5rem;
+  }
+}
+@keyframes iki-fade {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes iki-settle {
+  from {
+    scale: 1.06;
+  }
+}
+@keyframes iki-header-compact {
+  to {
+    padding-block: 0.625rem;
+  }
+}
+
+@layer components {
+  /* Encabezado de cada página: sus hijos entran escalonados al cargar */
+  .intro > * {
+    animation: iki-fade-up 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .intro > :nth-child(2) {
+    animation-delay: 0.08s;
+  }
+  .intro > :nth-child(3) {
+    animation-delay: 0.16s;
+  }
+  .intro > :nth-child(n + 4) {
+    animation-delay: 0.24s;
+  }
+  /* Foto de portada: se acomoda con un zoom leve. `backwards` para no pisar el hover. */
+  .settle {
+    animation: iki-settle 1.6s cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+  }
+  /* Subrayado que crece al pasar el mouse */
+  .link-line {
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+    padding-bottom: 2px;
+    transition: background-size 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .link-line:hover,
+  .link-line:focus-visible {
+    background-size: 100% 1px;
+  }
+  /* Menú mobile y lightbox: aparecen en vez de saltar */
+  details[open] > .menu-panel {
+    animation: iki-fade-down 0.3s ease-out;
+  }
+  dialog[open] {
+    animation: iki-fade 0.25s ease-out;
+  }
+}
+
+/* Bloques que aparecen al entrar en pantalla y header que se compacta al bajar
+   (scroll-driven animations: Chrome, Edge, Safari 26+; el resto los ve fijos). */
+@supports (animation-timeline: view()) {
+  .reveal {
+    animation: iki-fade-up linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 70%;
+  }
+  .header-compact {
+    animation: iki-header-compact linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 160px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after,
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+}

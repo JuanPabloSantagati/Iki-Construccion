@@ -5,7 +5,7 @@
 
 {% block content %}
 {# 1. Hero: lema + obra destacada #}
-<section class="container-site pt-10 pb-12 md:pt-16 md:pb-16">
+<section class="intro container-site pt-10 pb-12 md:pt-16 md:pb-16">
   <p class="eyebrow text-ash">Diseño &amp; Construcción · Baradero</p>
   <h1 class="mt-6 max-w-4xl text-5xl leading-[1.05] md:text-8xl">La elegancia de lo esencial</h1>
   <p class="mt-8 max-w-xl text-stone">Proyectamos, documentamos y dirigimos obras con una idea simple: que cada espacio tenga solo lo que necesita, y que eso sea suficiente.</p>
@@ -23,7 +23,7 @@
         <img src="{{ cover.large.url }}"
              srcset="{{ cover.medium.url }} 1280w, {{ cover.large.url }} 2000w"
              sizes="(min-width: 1400px) 1300px, 100vw" alt="{{ cover.alt }}" fetchpriority="high"
-             class="aspect-[4/3] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02] md:aspect-[16/9] lg:max-h-[70svh]">
+             class="settle aspect-[4/3] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02] md:aspect-[16/9] lg:max-h-[70svh]">
       </div>
     {% endif %}
     <div class="flex flex-col gap-1 pt-5 md:flex-row md:items-baseline md:justify-between">
@@ -37,16 +37,16 @@
 {# 2. Servicios resumidos #}
 {% if services %}
 <section class="container-site mt-16 md:mt-24" aria-labelledby="servicios">
-  <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+  <div class="reveal flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
     <div>
       <p class="eyebrow text-ash">Servicios</p>
       <h2 id="servicios" class="mt-4 text-4xl md:text-6xl">Te acompañamos en cada etapa</h2>
     </div>
-    <a href="{% url 'services:list' %}" class="eyebrow text-ash hover:text-ink">Todos los servicios &rarr;</a>
+    <a href="{% url 'services:list' %}" class="eyebrow link-line text-ash transition-colors hover:text-ink">Todos los servicios &rarr;</a>
   </div>
   <ul class="mt-12 border-t border-line">
     {% for service in services %}
-      <li class="border-b border-line">
+      <li class="reveal border-b border-line">
         <a href="{{ service.get_absolute_url }}" class="group grid gap-2 py-6 md:grid-cols-12 md:items-baseline md:gap-8 md:py-8">
           <span class="eyebrow text-ash md:col-span-1">{{ forloop.counter|stringformat:"02d" }}</span>
           <span class="font-display text-3xl font-semibold md:col-span-5 md:text-4xl">{{ service.title }}</span>
@@ -62,12 +62,12 @@
 {# 3. Últimos proyectos #}
 {% if recent %}
 <section class="container-site mt-16 md:mt-24" aria-labelledby="ultimos">
-  <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+  <div class="reveal flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
     <div>
       <p class="eyebrow text-ash">Portfolio</p>
       <h2 id="ultimos" class="mt-4 text-4xl md:text-6xl">Proyectos recientes</h2>
     </div>
-    <a href="{% url 'projects:list' %}" class="eyebrow text-ash hover:text-ink">Ver todos &rarr;</a>
+    <a href="{% url 'projects:list' %}" class="eyebrow link-line text-ash transition-colors hover:text-ink">Ver todos &rarr;</a>
   </div>
   <div class="mt-12 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
     {% for project in recent %}{% include "projects/_card.html" %}{% endfor %}
