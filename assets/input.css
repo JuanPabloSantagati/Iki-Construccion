@@ -145,7 +145,7 @@
 @keyframes iki-rise {
   from {
     opacity: 0;
-    translate: 0 3rem;
+    translate: 0 4rem;
   }
 }
 @keyframes iki-fade-down {
@@ -171,13 +171,13 @@
 }
 @keyframes iki-parallax {
   from {
-    translate: 0 -13%;
+    translate: 0 -19%;
   }
 }
 @keyframes iki-unveil {
   from {
-    clip-path: inset(30% 0 0 0);
-    opacity: 0.4;
+    clip-path: inset(45% 0 0 0);
+    opacity: 0.3;
   }
 }
 @keyframes iki-progress {
@@ -233,17 +233,17 @@
   .reveal {
     animation: iki-rise linear both;
     animation-timeline: view();
-    animation-range: entry 0% cover 30%;
+    animation-range: entry 0% cover 50%;
   }
   /* Marco de foto que se "abre" de abajo hacia arriba al entrar */
   .unveil {
     animation: iki-unveil linear both;
     animation-timeline: view();
-    animation-range: entry 0% cover 35%;
+    animation-range: entry 0% cover 55%;
   }
   /* Foto un poco más alta que su marco, que se desplaza más lento que la página */
   .parallax {
-    height: 116%;
+    height: 124%;
     animation: iki-parallax linear both;
     animation-timeline: view();
     animation-range: cover;
