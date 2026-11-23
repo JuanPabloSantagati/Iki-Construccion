@@ -23,11 +23,11 @@
 {# 1. Foto de portada, dentro del contenedor #}
 {% with cover=project.cover %}
   {% if cover %}
-    <div class="container-site pt-6 md:pt-10"><div class="overflow-hidden">
+    <div class="container-site pt-6 md:pt-10"><div class="aspect-[4/3] overflow-hidden bg-mist md:aspect-[16/9] lg:max-h-[70svh] lg:w-full">
       <img src="{{ cover.large.url }}"
            srcset="{{ cover.medium.url }} 1280w, {{ cover.large.url }} 2000w"
            sizes="(min-width: 1400px) 1300px, 100vw" alt="{{ cover.alt }}" fetchpriority="high"
-           class="settle aspect-[4/3] w-full bg-mist object-cover md:aspect-[16/9] lg:max-h-[70svh]">
+           class="settle parallax h-full w-full object-cover">
     </div></div>
   {% endif %}
 {% endwith %}
@@ -90,13 +90,13 @@
       <h2 id="galeria" class="eyebrow text-ash">Galería</h2>
       <ul class="mt-6 grid grid-cols-2 gap-3 md:gap-6 lg:grid-cols-3" data-gallery>
         {% for image in images %}
-          <li class="reveal">
-            <a href="{{ image.large.url }}" data-lightbox class="block aspect-[4/3] overflow-hidden bg-mist" aria-label="Ampliar imagen {{ forloop.counter }} de {{ images|length }}">
+          <li>
+            <a href="{{ image.large.url }}" data-lightbox class="unveil block aspect-[4/3] overflow-hidden bg-mist" aria-label="Ampliar imagen {{ forloop.counter }} de {{ images|length }}">
               <img src="{{ image.medium.url }}"
                    srcset="{{ image.thumb.url }} 640w, {{ image.medium.url }} 1280w"
                    sizes="(min-width: 1024px) 33vw, 50vw"
                    alt="{{ image.alt }}" loading="lazy" decoding="async"
-                   class="h-full w-full object-cover transition-transform duration-700 ease-out hover:scale-[1.03]">
+                   class="parallax h-full w-full object-cover transition-transform duration-700 ease-out hover:scale-[1.03]">
             </a>
           </li>
         {% endfor %}

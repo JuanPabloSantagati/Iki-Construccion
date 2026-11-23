@@ -19,11 +19,11 @@
   {% with cover=hero.cover %}
   <a href="{{ hero.get_absolute_url }}" class="container-site group block">
     {% if cover %}
-      <div class="overflow-hidden bg-mist">
+      <div class="aspect-[4/3] overflow-hidden bg-mist md:aspect-[16/9] lg:max-h-[70svh] lg:w-full">
         <img src="{{ cover.large.url }}"
              srcset="{{ cover.medium.url }} 1280w, {{ cover.large.url }} 2000w"
              sizes="(min-width: 1400px) 1300px, 100vw" alt="{{ cover.alt }}" fetchpriority="high"
-             class="settle aspect-[4/3] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02] md:aspect-[16/9] lg:max-h-[70svh]">
+             class="settle parallax h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]">
       </div>
     {% endif %}
     <div class="flex flex-col gap-1 pt-5 md:flex-row md:items-baseline md:justify-between">

@@ -142,6 +142,12 @@
     translate: 0 1.5rem;
   }
 }
+@keyframes iki-rise {
+  from {
+    opacity: 0;
+    translate: 0 3rem;
+  }
+}
 @keyframes iki-fade-down {
   from {
     opacity: 0;
@@ -161,6 +167,22 @@
 @keyframes iki-header-compact {
   to {
     padding-block: 0.625rem;
+  }
+}
+@keyframes iki-parallax {
+  from {
+    translate: 0 -13%;
+  }
+}
+@keyframes iki-unveil {
+  from {
+    clip-path: inset(30% 0 0 0);
+    opacity: 0.4;
+  }
+}
+@keyframes iki-progress {
+  from {
+    scale: 0 1;
   }
 }
 
@@ -203,11 +225,43 @@
 
 /* Bloques que aparecen al entrar en pantalla y header que se compacta al bajar
    (scroll-driven animations: Chrome, Edge, Safari 26+; el resto los ve fijos). */
+.scroll-progress {
+  display: none;
+}
+
 @supports (animation-timeline: view()) {
   .reveal {
-    animation: iki-fade-up linear both;
+    animation: iki-rise linear both;
     animation-timeline: view();
-    animation-range: entry 0% entry 70%;
+    animation-range: entry 0% cover 30%;
+  }
+  /* Marco de foto que se "abre" de abajo hacia arriba al entrar */
+  .unveil {
+    animation: iki-unveil linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 35%;
+  }
+  /* Foto un poco más alta que su marco, que se desplaza más lento que la página */
+  .parallax {
+    height: 116%;
+    animation: iki-parallax linear both;
+    animation-timeline: view();
+    animation-range: cover;
+  }
+  /* Portadas: zoom de entrada (por tiempo) + parallax (por scroll) en la misma foto */
+  .settle.parallax {
+    animation:
+      iki-settle 1.6s cubic-bezier(0.2, 0.7, 0.2, 1) backwards,
+      iki-parallax linear both;
+    animation-timeline: auto, view();
+    animation-range: normal, cover;
+  }
+  /* Línea de progreso de lectura bajo el header */
+  .scroll-progress {
+    display: block;
+    transform-origin: left;
+    animation: iki-progress linear both;
+    animation-timeline: scroll(root);
   }
   .header-compact {
     animation: iki-header-compact linear both;
