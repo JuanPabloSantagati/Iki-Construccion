@@ -12,3 +12,8 @@ nh3
 django-otp
 django-axes
 qrcode
+# Dependencias que otros paquetes piden solo en Windows (tzdata: Django y psycopg;
+# colorama: qrcode y pytest). Van sin marcador para que los .txt compilados en Linux
+# (CI, Dependabot) sigan instalando en Windows.
+tzdata
+colorama
