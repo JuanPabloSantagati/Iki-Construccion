@@ -180,6 +180,17 @@
     opacity: 0.3;
   }
 }
+@keyframes iki-drift {
+  to {
+    translate: 0 40%;
+    opacity: 0;
+  }
+}
+@keyframes iki-title-open {
+  to {
+    letter-spacing: 0.04em;
+  }
+}
 @keyframes iki-progress {
   from {
     scale: 0 1;
@@ -255,6 +266,20 @@
       iki-parallax linear both;
     animation-timeline: auto, view();
     animation-range: normal, cover;
+  }
+  /* Portada del inicio: al bajar, el bloque se queda atrás (más lento que la página)
+     y se desvanece, mientras el lema se abre en el espaciado de letras. */
+  .drift {
+    animation: iki-drift linear both;
+    animation-timeline: view();
+    animation-range: exit 0% exit 100%;
+  }
+  .intro > .title-open {
+    animation:
+      iki-fade-up 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both,
+      iki-title-open linear both;
+    animation-timeline: auto, view();
+    animation-range: normal, exit 0% exit 100%;
   }
   /* Línea de progreso de lectura bajo el header */
   .scroll-progress {
