@@ -9,11 +9,11 @@
     <nav class="lg:col-span-2" aria-label="Secciones">
       <p class="eyebrow text-mist/60">Navegación</p>
       <ul class="mt-5 space-y-3 text-sm">
-        <li><a href="{% url 'core:home' %}" class="hover:text-paper">Inicio</a></li>
-        <li><a href="{% url 'core:studio' %}" class="hover:text-paper">Estudio</a></li>
-        <li><a href="{% url 'services:list' %}" class="hover:text-paper">Servicios</a></li>
-        <li><a href="{% url 'projects:list' %}" class="hover:text-paper">Proyectos</a></li>
-        <li><a href="{% url 'contact:form' %}" class="hover:text-paper">Contacto</a></li>
+        <li><a href="{% url 'core:home' %}" class="link-line transition-colors hover:text-paper">Inicio</a></li>
+        <li><a href="{% url 'core:studio' %}" class="link-line transition-colors hover:text-paper">Estudio</a></li>
+        <li><a href="{% url 'services:list' %}" class="link-line transition-colors hover:text-paper">Servicios</a></li>
+        <li><a href="{% url 'projects:list' %}" class="link-line transition-colors hover:text-paper">Proyectos</a></li>
+        <li><a href="{% url 'contact:form' %}" class="link-line transition-colors hover:text-paper">Contacto</a></li>
       </ul>
     </nav>
 
@@ -22,7 +22,7 @@
       <p class="eyebrow text-mist/60">Servicios</p>
       <ul class="mt-5 space-y-3 text-sm">
         {% for service in footer_services %}
-          <li><a href="{{ service.get_absolute_url }}" class="hover:text-paper">{{ service.title }}</a></li>
+          <li><a href="{{ service.get_absolute_url }}" class="link-line transition-colors hover:text-paper">{{ service.title }}</a></li>
         {% endfor %}
       </ul>
     </nav>
@@ -32,12 +32,12 @@
       <p class="eyebrow text-mist/60">Contacto</p>
       <ul class="mt-5 space-y-3 text-sm">
         {% whatsapp_url site.whatsapp as wa %}
-        {% if wa %}<li><a href="{{ wa }}" class="hover:text-paper" target="_blank" rel="noopener">WhatsApp</a></li>{% endif %}
-        {% if site.phone %}<li><a href="{{ site.phone|tel_href }}" class="hover:text-paper">{{ site.phone }}</a></li>{% endif %}
-        {% if site.email %}<li><a href="mailto:{{ site.email }}" class="hover:text-paper">{{ site.email }}</a></li>{% endif %}
+        {% if wa %}<li><a href="{{ wa }}" class="link-line transition-colors hover:text-paper" target="_blank" rel="noopener">WhatsApp</a></li>{% endif %}
+        {% if site.phone %}<li><a href="{{ site.phone|tel_href }}" class="link-line transition-colors hover:text-paper">{{ site.phone }}</a></li>{% endif %}
+        {% if site.email %}<li><a href="mailto:{{ site.email }}" class="link-line transition-colors hover:text-paper">{{ site.email }}</a></li>{% endif %}
         {% if site.instagram %}<li><a href="{{ site.instagram }}" class="inline-flex items-center gap-2 hover:text-paper" target="_blank" rel="noopener">{% include "partials/icon_instagram.html" with class="size-4" %} Instagram</a></li>{% endif %}
-        {% if site.facebook %}<li><a href="{{ site.facebook }}" class="hover:text-paper" target="_blank" rel="noopener">Facebook</a></li>{% endif %}
-        <li><a href="{% url 'contact:form' %}" class="hover:text-paper">Formulario de consulta</a></li>
+        {% if site.facebook %}<li><a href="{{ site.facebook }}" class="link-line transition-colors hover:text-paper" target="_blank" rel="noopener">Facebook</a></li>{% endif %}
+        <li><a href="{% url 'contact:form' %}" class="link-line transition-colors hover:text-paper">Formulario de consulta</a></li>
         {% if site.address %}<li class="pt-2 text-mist/60">{{ site.address }}</li>{% endif %}
       </ul>
     </div>
@@ -46,7 +46,7 @@
     <div class="flex flex-col gap-2 text-xs text-mist/60 sm:flex-row sm:justify-between">
       <p>&copy; {% now "Y" %} IKI Diseño &amp; Construcción.</p>
       <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-6">
-        <a href="{% url 'core:privacy' %}" class="hover:text-paper">Política de privacidad</a>
+        <a href="{% url 'core:privacy' %}" class="link-line transition-colors hover:text-paper">Política de privacidad</a>
         {% include "partials/credits.html" %}
       </div>
     </div>

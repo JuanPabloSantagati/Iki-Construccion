@@ -17,13 +17,15 @@
 {% endif %}
 
 <article class="container-site pt-10 md:pt-16">
-  <a href="{% url 'services:list' %}" class="eyebrow text-ash hover:text-ink">&larr; Todos los servicios</a>
-  <h1 class="mt-6 max-w-4xl text-5xl leading-[1.05] md:text-7xl">{{ service.title }}</h1>
+  <div class="intro drift-soft">
+  <a href="{% url 'services:list' %}" class="eyebrow link-line text-ash transition-colors hover:text-ink">&larr; Todos los servicios</a>
+  <h1 class="title-open mt-6 max-w-4xl text-5xl leading-[1.05] md:text-7xl">{{ service.title }}</h1>
   {% if service.summary %}<p class="mt-8 max-w-2xl font-display text-2xl leading-snug md:text-3xl">{{ service.summary }}</p>{% endif %}
   {% if service.description %}
     {# Texto plano: se escapa y los saltos de línea pasan a párrafos (regla 6). #}
     <div class="rich-text mt-8 max-w-2xl text-stone">{{ service.description|linebreaks }}</div>
   {% endif %}
+  </div>
 
   {# Proceso paso a paso #}
   {% if steps %}
@@ -32,7 +34,7 @@
       <h2 id="proceso" class="mt-4 text-4xl md:text-5xl">El proceso</h2>
       <ol class="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
         {% for step in steps %}
-          <li class="border-t border-ink pt-6">
+          <li class="reveal border-t border-ink pt-6">
             <span class="eyebrow text-ash">Paso {{ forloop.counter|stringformat:"02d" }}</span>
             <p class="mt-3 font-display text-2xl font-semibold">{{ step.title }}</p>
             {% if step.description %}<p class="mt-3 text-stone">{{ step.description }}</p>{% endif %}
@@ -43,7 +45,7 @@
   {% endif %}
 
   {# CTA intermedio #}
-  <section class="mt-20 bg-mist px-6 py-12 md:mt-28 md:px-12 md:py-16">
+  <section class="reveal mt-20 bg-mist px-6 py-12 md:mt-28 md:px-12 md:py-16">
     <h2 class="text-3xl md:text-4xl">¿Necesitás {{ service.title|lower }}?</h2>
     <p class="mt-4 max-w-xl text-stone">Contanos tu idea y te decimos cómo podemos ayudarte.</p>
     <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">

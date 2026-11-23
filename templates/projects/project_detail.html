@@ -23,20 +23,20 @@
 {# 1. Foto de portada, dentro del contenedor #}
 {% with cover=project.cover %}
   {% if cover %}
-    <div class="container-site pt-6 md:pt-10">
+    <div class="container-site pt-6 md:pt-10"><div class="aspect-[4/3] overflow-hidden bg-mist md:aspect-[16/9] lg:max-h-[70svh] lg:w-full">
       <img src="{{ cover.large.url }}"
            srcset="{{ cover.medium.url }} 1280w, {{ cover.large.url }} 2000w"
            sizes="(min-width: 1400px) 1300px, 100vw" alt="{{ cover.alt }}" fetchpriority="high"
-           class="aspect-[4/3] w-full bg-mist object-cover md:aspect-[16/9] lg:max-h-[70svh]">
-    </div>
+           class="settle parallax h-full w-full object-cover">
+    </div></div>
   {% endif %}
 {% endwith %}
 
 <article class="container-site">
   {# 2. Volver + título + metadatos #}
-  <header class="pt-10 md:pt-16">
-    <a href="{% url 'projects:list' %}" class="eyebrow text-ash hover:text-ink">&larr; Todos los proyectos</a>
-    <h1 class="mt-6 text-5xl leading-[1.05] md:text-7xl">{{ project.title }}</h1>
+  <header class="intro drift-soft pt-10 md:pt-16">
+    <a href="{% url 'projects:list' %}" class="eyebrow link-line text-ash transition-colors hover:text-ink">&larr; Todos los proyectos</a>
+    <h1 class="title-open mt-6 text-5xl leading-[1.05] md:text-7xl">{{ project.title }}</h1>
     <p class="mt-5 text-sm uppercase tracking-[0.12em] text-stone">{{ project.meta_items|join:" · " }}</p>
   </header>
 
@@ -73,7 +73,7 @@
   </div>
 
   {# 6. CTA intermedio #}
-  <section class="mt-20 bg-mist px-6 py-12 md:px-12 md:py-16">
+  <section class="reveal mt-20 bg-mist px-6 py-12 md:px-12 md:py-16">
     <h2 class="text-3xl md:text-4xl">¿Te gustó este proyecto?</h2>
     <p class="mt-4 max-w-xl text-stone">Contanos qué tenés en mente y lo pensamos juntos.</p>
     <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
@@ -91,12 +91,12 @@
       <ul class="mt-6 grid grid-cols-2 gap-3 md:gap-6 lg:grid-cols-3" data-gallery>
         {% for image in images %}
           <li>
-            <a href="{{ image.large.url }}" data-lightbox class="block aspect-[4/3] overflow-hidden bg-mist" aria-label="Ampliar imagen {{ forloop.counter }} de {{ images|length }}">
+            <a href="{{ image.large.url }}" data-lightbox class="unveil block aspect-[4/3] overflow-hidden bg-mist" aria-label="Ampliar imagen {{ forloop.counter }} de {{ images|length }}">
               <img src="{{ image.medium.url }}"
                    srcset="{{ image.thumb.url }} 640w, {{ image.medium.url }} 1280w"
                    sizes="(min-width: 1024px) 33vw, 50vw"
                    alt="{{ image.alt }}" loading="lazy" decoding="async"
-                   class="h-full w-full object-cover transition-transform duration-700 ease-out hover:scale-[1.03]">
+                   class="parallax h-full w-full object-cover transition-transform duration-700 ease-out hover:scale-[1.03]">
             </a>
           </li>
         {% endfor %}
