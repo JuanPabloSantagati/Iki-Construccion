@@ -8,7 +8,9 @@ Contexto y comandos de Supabase: `docs/supabase.md`.
 Lo tiene que crear quien administra la organización de Supabase (Juan Pablo, o Franco si recibe
 la invitación como owner/admin). **Nunca** pegar claves en chats, issues ni PRs.
 
-1. Crear el proyecto `iki-prod` en la misma organización. Región **São Paulo (`sa-east-1`)**.
+1. Crear el proyecto `iki-prod` en la misma organización. Región **East US / North Virginia
+   (`us-east-1`)**: la misma zona que el servicio de Render (`region: virginia`). Render no tiene
+   región en Sudamérica; con la base en São Paulo cada consulta cruzaría el continente.
    Contraseña de DB larga, distinta de la de dev, guardada en un gestor de contraseñas.
 2. Deshabilitar la Data API (`docs/supabase.md` §2).
 3. En el SQL Editor, crear los roles `iki_migrator` e `iki_app` (`docs/supabase.md` §3).
@@ -29,7 +31,7 @@ la invitación como owner/admin). **Nunca** pegar claves en chats, issues ni PRs
 | `ALLOWED_HOSTS` | PÚBLICA | dominio(s) reales, sin `*` |
 | `CSRF_TRUSTED_ORIGINS` | PÚBLICA | `https://dominio` |
 | `SUPABASE_URL` | PÚBLICA | `https://<project-ref>.supabase.co` |
-| `SUPABASE_STORAGE_REGION` | PÚBLICA | ej. `sa-east-1` |
+| `SUPABASE_STORAGE_REGION` | PÚBLICA | `us-east-1` |
 | `DEFAULT_FROM_EMAIL` | PÚBLICA | remitente de los mails |
 | `ADMIN_URL` | PRIVADA | ruta del admin, termina en `/` |
 | `CONTACT_NOTIFY_EMAIL` | PRIVADA | casilla que recibe las consultas |
