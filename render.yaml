@@ -5,7 +5,7 @@ services:
     name: iki
     runtime: python
     plan: starter # el plan gratis se duerme; Starter no
-    region: virginia
+    region: virginia # misma zona que Supabase prod (us-east-1)
     branch: main
     autoDeploy: true
     buildCommand: ./scripts/render_build.sh

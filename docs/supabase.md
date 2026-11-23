@@ -1,7 +1,8 @@
 # Supabase: configuración y verificación
 
 Usamos dos proyectos: **iki-dev** (compartido entre los dos socios) e **iki-prod**.
-Región sugerida: `sa-east-1` (São Paulo). Django se conecta **solo por Postgres** y por la
+Región: `us-east-1` (North Virginia), la misma que el servidor de la app (Render, `region: virginia`;
+ver `docs/deploy-render.md`). Base y app en la misma zona: cada consulta no cruza el continente. Django se conecta **solo por Postgres** y por la
 API S3 de Storage. El navegador nunca recibe credenciales de Supabase.
 
 ## 1. Crear los proyectos
