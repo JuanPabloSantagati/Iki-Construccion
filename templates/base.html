@@ -8,9 +8,9 @@
   {# HTMX sin eval, sin <script> inyectados y sin estilos inline: compatible con una CSP estricta #}
   <meta name="htmx-config" content='{"includeIndicatorStyles": false, "allowEval": false, "allowScriptTags": false, "selfRequestsOnly": true}'>
   <link rel="icon" href="{% static 'img/favicon.ico' %}" sizes="48x48">
-  <link rel="icon" href="{% static 'img/favicon.svg' %}" type="image/svg+xml">
+  <link rel="icon" href="{% static 'img/favicon-512.png' %}" type="image/png" sizes="512x512">
   <link rel="apple-touch-icon" href="{% static 'img/apple-touch-icon.png' %}">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#111111">
   {% absolute_url request.path as canonical %}
   <link rel="canonical" href="{{ canonical }}">
   <meta property="og:site_name" content="IKI Diseño &amp; Construcción">

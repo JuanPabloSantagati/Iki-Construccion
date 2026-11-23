@@ -191,7 +191,7 @@ def test_menu_linkea_a_las_secciones(client, url):
 
 def test_favicon_declarado_y_ruta_raiz(client):
     body = client.get("/").content.decode()
-    assert "img/favicon.svg" in body
+    assert "img/favicon-512.png" in body
     assert "img/apple-touch-icon.png" in body
     response = client.get("/favicon.ico")
     assert response.status_code == 301

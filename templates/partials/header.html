@@ -1,6 +1,9 @@
+{% load static %}
 <header class="sticky top-0 z-40 bg-ink text-paper">
   <div class="container-site flex items-center justify-between gap-6 py-4 md:py-5">
-    <a href="{% url 'core:home' %}" class="text-2xl font-extrabold tracking-[0.35em]" aria-label="IKI — Inicio">IKI</a>
+    <a href="{% url 'core:home' %}" class="shrink-0" aria-label="IKI — Inicio">
+      <img src="{% static 'img/logo-iki-white.png' %}" alt="IKI" width="292" height="160" class="h-8 w-auto md:h-9">
+    </a>
 
     <nav class="hidden items-center gap-8 lg:flex" aria-label="Principal">
       <a href="{% url 'core:studio' %}" class="eyebrow font-semibold text-paper/75 hover:text-paper">Estudio</a>

@@ -1,10 +1,8 @@
-{% load iki %}
+{% load iki static %}
 <footer class="mt-16 bg-ink text-mist md:mt-20">
   <div class="container-site grid gap-12 py-16 md:grid-cols-2 lg:grid-cols-12 lg:gap-8">
     <div class="lg:col-span-5">
-      <p class="text-2xl font-extrabold tracking-[0.35em] text-paper">IKI</p>
-      <p class="eyebrow mt-3 text-mist/60">Diseño &amp; Construcción</p>
-      <p class="mt-8 max-w-xs font-display text-3xl font-semibold leading-tight text-paper">La elegancia de lo esencial.</p>
+      <img src="{% static 'img/logo-iki-completo-white.png' %}" alt="IKI Diseño &amp; Construcción. La elegancia de lo esencial." width="560" height="480" loading="lazy" class="w-48 md:w-56">
       <a href="{% url 'contact:form' %}" class="btn-outline mt-8 border-paper text-paper hover:bg-paper hover:text-ink">Iniciar proyecto</a>
     </div>
 
